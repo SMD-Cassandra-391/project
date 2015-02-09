@@ -14,6 +14,10 @@ public class Output{
         
     }
 
+    private static void generatePage(){
+        ArrayList<ColumnType> cols = new ArrayList<ColumnType>();
+    }
+
     private static void outputPage(ArrayList<String> lines){
         Path path = Paths.get(OUTPUT);
         try{
