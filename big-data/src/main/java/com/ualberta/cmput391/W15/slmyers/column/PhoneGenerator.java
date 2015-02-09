@@ -36,23 +36,43 @@ public class PhoneGenerator extends ColumnType implements Generator{
             987, 988, 989, 990, 991};
 
     public String gen(){
+    	boolean isThreeway = false;
         String output = "";
         double secNumProb = 0.00001;
         double threeWayCall = 0.0001;
-
+        // calling number
         output += genNumber();
         output += SEPERATOR;
-        
+        // does calling number have a secondary number?
         if(getRndmDbl() < secNumProb){
             output += genNumber();
-            output += SEPERATOR;
         }
-
+        output += SEPERATOR;
+        
+        // Receiving number
+        output += genNumber();
+        output += SEPERATOR;
+        // does the receiving number have a secondary number?
+        if(getRndmDbl() < secNumProb){
+            output += genNumber();
+        }
+        output += SEPERATOR;
+        
+        // is the call a "3 way call"
         if(getRndmDbl() < threeWayCall){
             output += genNumber();
-            output += SEPERATOR;
+            isThreeway = true;
         }
-
+        output += SEPERATOR;
+        // does the 3 way caller have a scecondary number?
+        if(isThreeway){
+        	if(getRndmDbl() < secNumProb){
+        		output += genNumber();
+        	}
+        }
+        output += SEPERATOR;
+        
+        
         return output;
     }
 

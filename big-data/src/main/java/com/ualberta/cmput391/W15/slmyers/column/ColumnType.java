@@ -2,7 +2,7 @@ package main.java.com.ualberta.cmput391.W15.slmyers.column;
 import java.util.Random;
 
 public abstract class ColumnType{
-    public static final String SEPERATOR = ";";
+    public static final String SEPERATOR = ",";
     protected float freq;
     protected String type;
     

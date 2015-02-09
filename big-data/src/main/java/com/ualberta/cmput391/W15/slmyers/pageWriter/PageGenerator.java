@@ -19,6 +19,7 @@ public class PageGenerator{
         cols.add(new PhoneGenerator());
         cols.add(new LocationGenerator());
         cols.add(new GridGenerator());
+        cols.add(new LocationGenerator());
         cols.add(new GridGenerator());
         cols.add(new IntGenerator(1));
         cols.add(new BigIntGenerator());
@@ -32,7 +33,7 @@ public class PageGenerator{
         cols.add(new IPgenerator());
         cols.add(new IntGenerator(7));
         cols.add(new IPgenerator());
-        cols.add(new IntGenerator(380));
+        cols.add(new IntGenerator(381));
         cols.add(new LastIntGen());
     }
 

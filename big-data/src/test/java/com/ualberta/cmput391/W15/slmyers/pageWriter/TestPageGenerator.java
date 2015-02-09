@@ -11,9 +11,19 @@ public class TestPageGenerator {
 	public void testGeneratePage(){
 		PageGenerator pg = new PageGenerator();
 		ArrayList<String> output = new ArrayList<String>();
+		String[] line;
+		int columNumber = 470;
 		output = pg.generatePage();
 		
 		Assert.assertTrue("expected " +  PageGenerator.PAGE_SIZE + "lines, found " + output.size() +
 						  " lines", output.size() == PageGenerator.PAGE_SIZE);
+		for(String s : output){
+			line = s.split(",");
+			Assert.assertTrue("expected " + columNumber + "columns but found" +
+							  "only " + line.length + " columns\n" +
+							  s, line.length == 470);
+		}
+		
+		
 	}
 }
