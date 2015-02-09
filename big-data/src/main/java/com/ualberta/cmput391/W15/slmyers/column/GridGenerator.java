@@ -1,4 +1,4 @@
-package com.ualberta.cmput391.W15.slmyers.column;
+package main.java.com.ualberta.cmput391.W15.slmyers.column;
 import java.lang.Integer;
 
 public class GridGenerator extends ColumnType implements Generator{

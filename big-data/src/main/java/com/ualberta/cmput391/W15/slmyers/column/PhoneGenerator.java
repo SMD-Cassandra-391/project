@@ -1,7 +1,8 @@
-package com.ualberta.cmput391.W15.slmyers.column;
+package main.java.com.ualberta.cmput391.W15.slmyers.column;
 import java.lang.Integer;
 import java.lang.RuntimeException;
 import java.lang.NumberFormatException;
+import java.util.Random;
 
 public class PhoneGenerator extends ColumnType implements Generator{
 	private static final int[] AREA_CODE_780_PREFIX = 
@@ -35,6 +36,27 @@ public class PhoneGenerator extends ColumnType implements Generator{
             987, 988, 989, 990, 991};
 
     public String gen(){
+        String output = "";
+        double secNumProb = 0.00001;
+        double threeWayCall = 0.0001;
+
+        output += genNumber();
+        output += SEPERATOR;
+        
+        if(getRndmDbl() < secNumProb){
+            output += genNumber();
+            output += SEPERATOR;
+        }
+
+        if(getRndmDbl() < threeWayCall){
+            output += genNumber();
+            output += SEPERATOR;
+        }
+
+        return output;
+    }
+
+    private String genNumber(){
         String areaCode = null;
         String prefix = null;
         String suffix = null;
@@ -85,5 +107,10 @@ public class PhoneGenerator extends ColumnType implements Generator{
             return "587";
         }
         return null;
+    }
+
+    private double getRndmDbl(){
+        Random rndm = new Random();
+        return rndm.nextDouble();
     }
 }

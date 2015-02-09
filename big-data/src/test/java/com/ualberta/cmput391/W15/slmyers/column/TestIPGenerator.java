@@ -1,8 +1,10 @@
-package com.ualberta.cmput391.W15.slmyers.column;
+package test.java.com.ualberta.cmput391.W15.slmyers.column;
 import com.google.common.net.InetAddresses;
+import main.java.com.ualberta.cmput391.W15.slmyers.column.IPgenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import java.lang.String;
+
 public class TestIPGenerator{
     @Test
     public void test(){

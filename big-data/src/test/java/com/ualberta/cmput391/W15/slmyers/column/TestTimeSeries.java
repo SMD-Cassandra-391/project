@@ -1,6 +1,9 @@
-package com.ualberta.cmput391.W15.slmyers.column;
+package test.java.com.ualberta.cmput391.W15.slmyers.column;
+import main.java.com.ualberta.cmput391.W15.slmyers.column.TimeSeriesGenerator;
+
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.lang.String;
 import java.util.Date;
 import java.lang.Long;

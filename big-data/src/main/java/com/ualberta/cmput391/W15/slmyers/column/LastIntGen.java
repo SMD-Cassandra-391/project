@@ -1,4 +1,4 @@
-package com.ualberta.cmput391.W15.slmyers.column;
+package main.java.com.ualberta.cmput391.W15.slmyers.column;
 import java.lang.Integer;
 
 public class LastIntGen extends ColumnType implements Generator{
@@ -10,6 +10,7 @@ public class LastIntGen extends ColumnType implements Generator{
     public String gen(){
         String output = "";
         output += Integer.toString(randomInt(1,1000));
+        output += "\n";
         return output;
     }
 }

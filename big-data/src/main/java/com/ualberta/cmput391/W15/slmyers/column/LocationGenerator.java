@@ -1,4 +1,4 @@
-package com.ualberta.cmput391.W15.slmyers.column;
+package main.java.com.ualberta.cmput391.W15.slmyers.column;
 import java.util.Random;
 import java.lang.Double;
 public class LocationGenerator extends ColumnType implements Generator{
