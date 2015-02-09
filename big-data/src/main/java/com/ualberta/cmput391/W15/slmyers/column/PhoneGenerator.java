@@ -75,12 +75,12 @@ public class PhoneGenerator extends ColumnType implements Generator{
         int min = 0;
         int randomNumber = 0;
         if(areaCode == 780){
-            max = AREA_CODE_780_PREFIX.length;
+            max = AREA_CODE_780_PREFIX.length - 1;
             randomNumber = randomInt(min, max);
             return Integer.toString(AREA_CODE_780_PREFIX[randomNumber]);
         }
         else if(areaCode == 587){
-            max = AREA_CODE_587_PREFIX.length;
+            max = AREA_CODE_587_PREFIX.length - 1;
             randomNumber = randomInt(min, max);
             return Integer.toString(AREA_CODE_587_PREFIX[randomNumber]);
         } 

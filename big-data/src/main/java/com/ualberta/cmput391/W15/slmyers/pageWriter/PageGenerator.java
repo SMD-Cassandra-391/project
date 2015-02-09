@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class PageGenerator{
 	
-	private static final int PAGE_SIZE = 1000;
+	public static final int PAGE_SIZE = 1000;
     private ArrayList<Generator> cols;
 
     public PageGenerator(){
@@ -37,7 +37,7 @@ public class PageGenerator{
     }
 
     @SuppressWarnings("unused")
-	private ArrayList<String> generatePage(){
+	public ArrayList<String> generatePage(){
         ArrayList<String> page = new ArrayList<String>();
         String line = "";
         for(int i = 0; i < PAGE_SIZE; i++){
