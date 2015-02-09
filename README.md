@@ -15,6 +15,8 @@ http://stackoverflow.com/questions/15630055/how-to-install-maven-3-on-ubuntu-14-
 Eclipse also has a maven plugin that is of use:
 http://maven.apache.org/eclipse-plugin.html
 
+#Package Discipline 
+
 Please keep package discipline as this will allow for easier managment of the code base. As an example I create a
 Hello World Java class. I will create a new package in the src directory of 
 `big-data` named: 
@@ -26,6 +28,13 @@ If I feel the need to write Junit tests for this class, then I will also create 
 
 #Other Languages
 If you feel the need or want to use other languages, I'm sure we can incoporate files of another type in this GitHub project, but we'll need to ensure that these files are kept out of the `big-data` directory. Personally I'm planning on writing a node.js server to serve commands to the database, so ideas such as this are not out of the question. 
+
+#Git Discipline 
+I've added a `git ignore` file, but I'm not sure it's foolproof. If you see a bunch of untracked files that shoul
+definetly not be pushed to the server, then this link might be of interest:
+http://stackoverflow.com/questions/11542687/git-how-to-ignore-all-present-untracked-files
+
+Lets try to have pride in this repository and keep it clean. 
 
 #Contact Information
 I'm not going to publish contact information for all group members. If a group member wants to add their contact information, they are free to do so. 
