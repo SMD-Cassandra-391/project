@@ -37,8 +37,7 @@ public class PageGenerator{
         cols.add(new LastIntGen());
     }
 
-    @SuppressWarnings("unused")
-	public ArrayList<String> generatePage(){
+    public ArrayList<String> generatePage(){
         ArrayList<String> page = new ArrayList<String>();
         String line = "";
         for(int i = 0; i < PAGE_SIZE; i++){
