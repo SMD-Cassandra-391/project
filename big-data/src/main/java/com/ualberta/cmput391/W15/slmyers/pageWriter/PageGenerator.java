@@ -33,8 +33,7 @@ public class PageGenerator{
         cols.add(new IPgenerator());
         cols.add(new IntGenerator(7));
         cols.add(new IPgenerator());
-        cols.add(new IntGenerator(381));
-        cols.add(new LastIntGen());
+        cols.add(new IntGenerator(382));
     }
 
     public ArrayList<String> generatePage(){
