@@ -10,7 +10,7 @@ public class TestIPGenerator{
     public void test(){
         IPgenerator ipg = new IPgenerator();
         String ipString = ipg.gen();
-       	String[] term = ipString.split(";", -1);
+       	String[] term = ipString.split(",", -1);
         Assert.assertTrue("IP generated is not valid", 
                    InetAddresses.isInetAddress(term[0]));
     }

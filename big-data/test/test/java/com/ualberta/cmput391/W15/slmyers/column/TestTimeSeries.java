@@ -13,7 +13,7 @@ public class TestTimeSeries{
     public void test(){
         TimeSeriesGenerator tsg = new TimeSeriesGenerator();
         String test = tsg.gen();
-        String[] datesWithExtraField = test.split(";", -1);
+        String[] datesWithExtraField = test.split(",", -1);
         String[] datesExtracted = new String[3];
         for(int i = 0; i < datesWithExtraField.length - 1; i++){
             datesExtracted[i] = datesWithExtraField[i];
