@@ -1,5 +1,6 @@
 package test.java.com.ualberta.cmput391.W15.slmyers.pageWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +26,7 @@ public class TestFIleWriter {
 		Assert.assertTrue("output file: " + FileWriter.OUTPUT + " does not exist", Files.exists(path));
 		
 		try {
-			input = Files.readAllLines(path);
+			input = Files.readAllLines(path, StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

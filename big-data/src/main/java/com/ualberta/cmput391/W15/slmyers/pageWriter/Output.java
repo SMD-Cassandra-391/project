@@ -8,11 +8,14 @@ public class Output{
     public static void main( String[] args ){
     	ArrayList<String> output = new ArrayList<String>();
     	PageGenerator pg = new PageGenerator();
+    	long start = System.currentTimeMillis();
+    	System.out.println("writing");
         for(int i = 0; i < NUMBER_PAGES; i++){
         	output = pg.generatePage();
         	FileWriter.outputPage(output);
         }
+        long end = System.currentTimeMillis();
+        long diff = end - start;
+        System.out.println("It has taken " + (diff/1000) + " seconds");
     }
-    
-    
 }
