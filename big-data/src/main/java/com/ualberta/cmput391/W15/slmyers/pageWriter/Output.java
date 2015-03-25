@@ -6,19 +6,27 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import main.java.com.ualberta.cmput391.W15.slmyers.cass.Application;
+
 public class Output{
 	private static final int NUM_THREADS = 2;
 	public static final String DIR_NAME = "data";
     
 	public static void main( String[] args ){
-    	long startTime = 0;
+		String tableDesc = Application.getApp().getTableDesc();
+		
+		
+		
+		long startTime = 0;
     	long endTime = 0;
     	printStartMsg();
-    	createDir(DIR_NAME);
+    	FileUtils.deleteDir(DIR_NAME);
+    	FileUtils.createDir(DIR_NAME);
     	startTime = System.currentTimeMillis();
     	ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
     	for (int i = 0; i < 2; i++) {
-    	      Runnable worker = new DataThread();
+    		  // filler is a placeholder for when I can actually implement DataThread
+    	      Runnable worker = new DataThread(tableDesc);
     	      executor.execute(worker);
     	}
 
@@ -34,31 +42,12 @@ public class Output{
 		}
         endTime = System.currentTimeMillis();
         printEndMsg(endTime - startTime);
-        
+        Application.getApp().closeCluster();
     }
     
-    
+   
 
-    public static void createDir(String dirName){
-		File theDir = new File(dirName);
-		
-		// if the directory does not exist, create it
-		if (!theDir.exists()) {
-		    System.out.println("creating directory: " + dirName);
-		    boolean result = false;
-		
-		    try{
-		        theDir.mkdir();
-		        result = true;
-		    } 
-		    catch(SecurityException se){
-		        //handle it
-		    }        
-		    if(!result) {    
-		        System.out.println("Unable to create directory: " + dirName);  
-		    }
-		}
-    }
+    
 
     
     public static void printStartMsg(){

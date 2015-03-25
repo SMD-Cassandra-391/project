@@ -8,16 +8,18 @@ public class DataThread implements Runnable{
 	private long runtime;
 	private ArrayList<String> output;
 	private PageGenerator pg;
-	public DataThread(){
+	private String tableDesc;
+	public DataThread(String tableDesc){
 		threadName = new String(UUID.randomUUID().toString());
 		output = new ArrayList<String>();
 		pg = new PageGenerator();
+		this.tableDesc = new String(tableDesc);
 	}
 	
 	public void run(){
 		long start = System.currentTimeMillis();
 		output = pg.generatePage();
-		FileWriter.outputPage(output, new String(threadName + ".csv"));
+		FileUtils.outputPage(output, new String(threadName + ".csv"));
 		long end = System.currentTimeMillis();
 		this.runtime = (end - start) / 1000;
 	}
@@ -29,6 +31,9 @@ public class DataThread implements Runnable{
 		System.out.println("\tTook " + runtime + " seconds to complete.");
 		System.out.println("-----------------------------------------");
 	}
+	
+	
+	
 	
 	public String getThreadName() {
 		return threadName;
