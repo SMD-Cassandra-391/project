@@ -1,9 +1,11 @@
 package main.java.com.ualberta.cmput391.W15.slmyers.pageWriter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import main.java.com.ualberta.cmput391.W15.slmyers.cass.Application;
+import main.java.com.ualberta.cmput391.W15.slmyers.cass.RunShell;
 
 public class DataThread implements Runnable{
 	private String threadName;
@@ -22,7 +24,6 @@ public class DataThread implements Runnable{
 	
 	public void run(){
 		long start = System.currentTimeMillis();
-		
 		ArrayList<String> shellOutput = new ArrayList<String>();
 		shellOutput.add(this.shellText());
 		output = pg.generatePage();
@@ -30,7 +31,11 @@ public class DataThread implements Runnable{
 		FileUtils.outputPage(output, new String(threadName + ".csv"), Output.DATA_DIR);
 		FileUtils.outputPage(shellOutput, new String(threadName + ".cql"), Output.SHELL_DIR);
 		
+		RunShell.movePair(Output.DATA_DIR + File.separatorChar + threadName + ".csv", 
+				         Output.SHELL_DIR + File.separatorChar + threadName + ".cql");
 		
+		RunShell.runcpy(threadName + ".cql");
+		RunShell.deletePair(threadName + ".csv", threadName + ".cql");
 		
 		long end = System.currentTimeMillis();
 		this.runtime = (end - start) / 1000;

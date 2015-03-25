@@ -28,9 +28,20 @@ public class Application {
 		session = cluster.connect();
 	}
 	
+	protected Application(String test){
+		// empty constructor
+	}
+	
 	public static Application getApp(){
 		if(app == null){
 			app = new Application();
+		}
+		return app;
+	}
+	
+	public static Application getTestApp(){
+		if(app == null){
+			app = new Application("test");
 		}
 		return app;
 	}

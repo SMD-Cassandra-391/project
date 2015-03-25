@@ -10,13 +10,11 @@ import main.java.com.ualberta.cmput391.W15.slmyers.cass.Application;
 
 public class Output{
 	private static final int NUM_THREADS = 2;
-	public static final String DATA_DIR = "data";
-	public static final String SHELL_DIR = "shell";
+	public static final String DATA_DIR = "/home/ubuntu/resources/data";
+	public static final String SHELL_DIR = "/home/ubuntu/resources/shell";
     
 	public static void main( String[] args ){
 		String tableDesc = Application.getApp().getTableDesc();
-		
-		
 		
 		long startTime = 0;
     	long endTime = 0;
@@ -44,9 +42,13 @@ public class Output{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        
         endTime = System.currentTimeMillis();
         printEndMsg(endTime - startTime);
         Application.getApp().closeCluster();
+        
+        //FileUtils.deleteDir("resources");
     }
     
    
@@ -67,13 +69,9 @@ public class Output{
      */
     
     public static void printEndMsg(long totalTime){
-    	long dirSizeBytes = folderSize(new File("data"));
-    	
-    	
-    	System.out.println("data generation complete");
-    	System.out.println("\tgenerated " + dirSizeBytes + " Bytes");
-    	System.out.println("\tin folder: data/");
-    	System.out.println("\ttook " + TimeUnit.MILLISECONDS.toSeconds(totalTime) + " seconds");
+    	System.out.println("**********************************");
+    	System.out.println("*     ending data generation     *");
+    	System.out.println("**********************************");
     }
     
     public static long folderSize(File directory) {
