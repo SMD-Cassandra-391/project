@@ -1,37 +1,61 @@
 package main.java.com.ualberta.cmput391.W15.slmyers.pageWriter;
+
 import main.java.com.ualberta.cmput391.W15.slmyers.column.*;
 
 import java.util.ArrayList;
 
-public class PageGenerator{
-	
+public class PageGenerator {
+	// around 1000 chars per line
+	private static final int CHAR_CAP = 1000;
+	// 10000 rows per csv file
 	public static final int PAGE_SIZE = 10000;
-    private ArrayList<Generator> cols;
+	private ArrayList<Generator> cols;
+	private StringBuilder sb;
 
-    public PageGenerator(){
-    	this.initializeCols();
-    }
+	public PageGenerator() {
+		this.initializeCols();
+		sb = new StringBuilder(CHAR_CAP);
+	}
 
-    private void initializeCols(){
-        cols = new ArrayList<Generator>();
-        	cols.add(new IntGenerator(400));
-    }
+	private void initializeCols() {
+		cols = new ArrayList<Generator>();
+		cols.add(new IntGenerator(2));
+		cols.add(new TimeSeriesGenerator());
+		cols.add(new PhoneGenerator());
+		cols.add(new LocationGenerator());
+		cols.add(new GridGenerator());
+		cols.add(new LocationGenerator());
+		cols.add(new GridGenerator());
+		cols.add(new IntGenerator(1));
+		cols.add(new BigIntGenerator());
+		cols.add(new IntGenerator(7));
+		cols.add(new BigIntGenerator());
+		cols.add(new IPgenerator());
+		cols.add(new IntGenerator(16));
+		cols.add(new IPgenerator());
+		cols.add(new IPgenerator());
+		cols.add(new IntGenerator(31));
+		cols.add(new IPgenerator());
+		cols.add(new IntGenerator(7));
+		cols.add(new IPgenerator());
+		cols.add(new IntGenerator(382));
+	}
 
-    public ArrayList<String> generatePage(){
-        ArrayList<String> page = new ArrayList<String>();
-        String line = "";
-        for(int i = 0; i < PAGE_SIZE; i++){
-            line = "";
-            for(Generator column : cols){
-                line += column.gen();
-            }
-            page.add(line);
-        }
-        return page;
-    }
+	public ArrayList<String> generatePage() {
+		ArrayList<String> page = new ArrayList<String>();
+		//String line = "";
+		for (int i = 0; i < PAGE_SIZE; i++) {
+			sb.delete(0, sb.length());
+			for (Generator column : cols) {
+				sb.append(column.gen());
+			}
+			page.add(sb.toString());
+		}
+		return page;
+	}
 
-    @SuppressWarnings("unused")
-	private ArrayList<Generator> getCols(){
-    	return this.cols;
-    }
+	@SuppressWarnings("unused")
+	private ArrayList<Generator> getCols() {
+		return this.cols;
+	}
 }

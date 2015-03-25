@@ -22,7 +22,7 @@ public class TestFIleWriter {
 		output.add(testString);
 		output.add(testString);
 		
-		FileWriter.outputPage(output);
+		FileWriter.outputPage(output, "test.txt");
 		Assert.assertTrue("output file: " + FileWriter.OUTPUT + " does not exist", Files.exists(path));
 		
 		try {
