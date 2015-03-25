@@ -14,8 +14,8 @@ import java.util.List;
 
 public class FileUtils{
     
-	public static void outputPage(ArrayList<String> lines, String fileName){
-        Path path = Paths.get(Output.DIR_NAME + File.separatorChar + fileName);
+	public static void outputPage(ArrayList<String> lines, String fileName, String Dir){
+        Path path = Paths.get(Dir + File.separatorChar + fileName);
         try{
             Files.write(path,lines,StandardCharsets.UTF_8);
         }catch(IOException ioe){

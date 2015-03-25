@@ -10,7 +10,8 @@ import main.java.com.ualberta.cmput391.W15.slmyers.cass.Application;
 
 public class Output{
 	private static final int NUM_THREADS = 2;
-	public static final String DIR_NAME = "data";
+	public static final String DATA_DIR = "data";
+	public static final String SHELL_DIR = "shell";
     
 	public static void main( String[] args ){
 		String tableDesc = Application.getApp().getTableDesc();
@@ -20,13 +21,16 @@ public class Output{
 		long startTime = 0;
     	long endTime = 0;
     	printStartMsg();
-    	FileUtils.deleteDir(DIR_NAME);
-    	FileUtils.createDir(DIR_NAME);
+    	FileUtils.deleteDir(DATA_DIR);
+    	FileUtils.createDir(DATA_DIR);
+    	FileUtils.deleteDir(SHELL_DIR);
+    	FileUtils.createDir(SHELL_DIR);
+    	
     	startTime = System.currentTimeMillis();
     	ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
     	for (int i = 0; i < 2; i++) {
     		  // filler is a placeholder for when I can actually implement DataThread
-    	      Runnable worker = new DataThread(tableDesc);
+    	      Runnable worker = new DataThread(tableDesc, Application.DEMO);
     	      executor.execute(worker);
     	}
 

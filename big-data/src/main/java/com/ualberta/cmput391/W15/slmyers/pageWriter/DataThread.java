@@ -3,23 +3,35 @@ package main.java.com.ualberta.cmput391.W15.slmyers.pageWriter;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import main.java.com.ualberta.cmput391.W15.slmyers.cass.Application;
+
 public class DataThread implements Runnable{
 	private String threadName;
 	private long runtime;
 	private ArrayList<String> output;
 	private PageGenerator pg;
 	private String tableDesc;
-	public DataThread(String tableDesc){
+	private String type;
+	public DataThread(String tableDesc, String type){
 		threadName = new String(UUID.randomUUID().toString());
 		output = new ArrayList<String>();
 		pg = new PageGenerator();
-		this.tableDesc = new String(tableDesc);
+		this.tableDesc = tableDesc;
+		this.type = type;
 	}
 	
 	public void run(){
 		long start = System.currentTimeMillis();
+		
+		ArrayList<String> shellOutput = new ArrayList<String>();
+		shellOutput.add(this.shellText());
 		output = pg.generatePage();
-		FileUtils.outputPage(output, new String(threadName + ".csv"));
+		
+		FileUtils.outputPage(output, new String(threadName + ".csv"), Output.DATA_DIR);
+		FileUtils.outputPage(shellOutput, new String(threadName + ".cql"), Output.SHELL_DIR);
+		
+		
+		
 		long end = System.currentTimeMillis();
 		this.runtime = (end - start) / 1000;
 	}
@@ -32,7 +44,14 @@ public class DataThread implements Runnable{
 		System.out.println("-----------------------------------------");
 	}
 	
-	
+	public String shellText(){
+		if(type.equals(Application.DEMO)){
+			return "COPY " + Application.DEMO_KEYSPACE + "." + Application.DEMO_TABLE
+					+ tableDesc + "FROM" + threadName + ".csv;";
+		}
+		return "COPY " + Application.PROJ_KEYSPACE + "." + Application.PROJ_KEYSPACE
+				+ tableDesc + "FROM" + threadName + ".csv;";
+	}
 	
 	
 	public String getThreadName() {
