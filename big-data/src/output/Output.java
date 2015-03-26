@@ -20,7 +20,7 @@ public class Output {
 	public static void main(String[] args) {
 		initApp();
 		String questionString = buildQuestionString(COL_NUM);
-		SSTwriter writer = new SSTwriter(createStatement, tableDesc, questionString, inputString); 
+		SSTwriter writer = new SSTwriter(createStatement, tableDesc, questionString); 
 	}
 
 	public static void initApp(){

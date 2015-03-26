@@ -15,7 +15,6 @@ public class SSTwriter {
 	private static String createStatement;
 	private static String tableDesc;
 	private static String questionString;
-	private String inputString;
 	private ObjectListGenerator gen;
 
 	/** Default output directory */
@@ -40,12 +39,12 @@ public class SSTwriter {
 
 	
 	public SSTwriter(String createStatement, String tableDesc,
-			String questionString, String inputString) {
+			String questionString) {
 		this.gen = new ObjectListGenerator();
 		this.createStatement = new String(createStatement);
 		this.tableDesc = new String(tableDesc);
 		this.questionString = new String(questionString);
-		this.inputString = new String(inputString);
+		
 	}
 
 	public void execute() {
