@@ -1,26 +1,22 @@
 package main.java.com.ualberta.cmput391.W15.slmyers.cass;
 
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
-import java.math.BigInteger;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import org.apache.cassandra.config.Config;
 import org.apache.cassandra.dht.Murmur3Partitioner;
 import org.apache.cassandra.exceptions.InvalidRequestException;
 import org.apache.cassandra.io.sstable.CQLSSTableWriter;
-import org.supercsv.io.CsvListReader;
-import org.supercsv.prefs.CsvPreference;
+
 
 public class SSTloader {
 	private static String createStatement;
 	private static String tableDesc;
 	private static String questionString;
 	private String inputString;
+	private ObjectListGenerator gen;
 
 	/** Default output directory */
 	public static final String DEFAULT_OUTPUT_DIR = "./SSTdata";
@@ -44,6 +40,7 @@ public class SSTloader {
 
 	public SSTloader(String createStatement, String tableDesc,
 			String questionString, String inputString) {
+		this.gen = new ObjectListGenerator();
 		this.createStatement = new String(createStatement);
 		this.tableDesc = new String(tableDesc);
 		this.questionString = new String(questionString);
@@ -73,14 +70,21 @@ public class SSTloader {
 				// one.
 				.withPartitioner(new Murmur3Partitioner());
 		CQLSSTableWriter writer = builder.build();
-		BufferedReader reader = null;
-		reader = new BufferedReader(new StringReader(inputString));
-
-		CsvListReader csvReader = new CsvListReader(reader,
-				CsvPreference.STANDARD_PREFERENCE);
-
-		// Write to SSTable while reading data
-		List<String> line;
+		for(int i = 0; i < 10000; i++){
+			try {
+				writer.addRow(gen.genRow());
+			} catch (InvalidRequestException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		/*
 		 * this is awful there must be a better way
 		try {
