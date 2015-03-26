@@ -62,7 +62,7 @@ public class Application {
 		return this.TABLE_DESCR;
 	}
 	
-	public void setTableDesc(String tableDesc){
+	public void setTableDesc(){
 		this.TABLE_DESCR = FileUtils.getTableDesc();
 	}
 }

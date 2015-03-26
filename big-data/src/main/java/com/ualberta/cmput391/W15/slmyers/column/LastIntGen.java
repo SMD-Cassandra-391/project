@@ -10,7 +10,6 @@ public class LastIntGen extends ColumnType implements Generator{
     public String gen(){
         String output = "";
         output += Integer.toString(randomInt(1,1000));
-        output += "\n";
         return output;
     }
 }

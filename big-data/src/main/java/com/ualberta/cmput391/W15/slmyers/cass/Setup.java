@@ -14,9 +14,7 @@ public class Setup {
 			"resources" + File.separatorChar +  "bigdata_setup1.sql";
 	
 	private String type;
-	private Application app;
 	private Session session;
-	private Cluster cluster;
 	private String createStatement;
 
 	
@@ -27,7 +25,7 @@ public class Setup {
 										+" or " + Application.PROJ);
 		}
 		session = Application.getApp().getSession();
-		cluster = Application.getApp().getCluster();
+		
 		this.readTableString();
 	}
 	

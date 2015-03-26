@@ -1,14 +1,16 @@
 package main.java.com.ualberta.cmput391.W15.slmyers.cass;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 
 import main.java.com.ualberta.cmput391.W15.slmyers.pageWriter.Output;
 
 public class RunShell {
-	private static final String CASS_PATH = "/home/ubuntu/cassandra/apache-cassandra-2.0.5/bin";
-	private static final String RESOURCE_PATH = "/home/ubuntu/resources/";
-	private static final String CQLSH = "./home/ubuntu/cassandra/apache-cassandra-2.0.5/bin/cqlsh";
+	private static final String CASS_PATH = "/home/steve/cassandra/apache-cassandra-2.1.3/bin";
+	// this is path from the folder holding the program
+	// relative path from jar file for production
+	private static final String CQLSH = "./../../../cassandra/apache-cassandra-2.1.3/bin/cqlsh";
 	private static final int BUFFER_SIZE = 150;
 	private static final String SPACE = " ";
 	
@@ -28,29 +30,32 @@ public class RunShell {
 	}
 	
 	
-	public static void runcpy(String CQLSHFile){
+	public static String runcpy(String CQLSHFile){
 		StringBuilder cmd = new StringBuilder(BUFFER_SIZE);
 		cmd.append(CQLSH);
 		cmd.append(SPACE);
 		cmd.append("-f");
 		cmd.append(SPACE);
 		cmd.append(CQLSHFile);
-		executeCommand(cmd.toString());
+		return executeCommand(cmd.toString());
 	}
 	
-	public static void deletePair(String csvFile, String CQLSHFile){
-		deleteCmd(Output.DATA_DIR + csvFile);
-		deleteCmd(Output.SHELL_DIR + CQLSHFile);
+	public static String deletePair(String csvFile, String CQLSHFile){
+		StringBuilder sb = new StringBuilder();
+		sb.append(deleteCmd(Output.DATA_DIR + File.separatorChar + csvFile));
+		sb.append(" ");
+		sb.append(deleteCmd(Output.SHELL_DIR + File.separatorChar + CQLSHFile));
+		return sb.toString();
 	}
 	
-	private static void deleteCmd(String file){
+	private static String deleteCmd(String file){
 		StringBuilder cmd = new StringBuilder(BUFFER_SIZE);
 		cmd.append("rm");
 		cmd.append(SPACE);
 		cmd.append("-f");
 		cmd.append(SPACE);
 		cmd.append(file);
-		executeCommand(cmd.toString());
+		return executeCommand(cmd.toString());
 	}
 	
 	private static String executeCommand(String command) {
@@ -72,7 +77,7 @@ public class RunShell {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
- 
+		System.out.println(output.toString());
 		return output.toString();
  
 	}

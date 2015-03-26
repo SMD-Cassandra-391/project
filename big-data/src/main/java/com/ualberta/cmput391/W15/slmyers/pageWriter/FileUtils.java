@@ -24,7 +24,7 @@ public class FileUtils{
     }
 	
 	public static void deleteDir(String dir){
-		Path directory = Paths.get(File.pathSeparatorChar + dir);
+		Path directory = Paths.get(dir);
 		   try {
 			Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
 				   @Override
@@ -67,7 +67,7 @@ public class FileUtils{
     }
 	
 	public static ArrayList<String> readFileDesc() throws IOException {
-		Path path = Paths.get("resources/bigdata_setup1.sql");
+		Path path = Paths.get("resources" + File.separatorChar + "bigdata_setup1.sql");
 	    List<String> file = java.nio.file.Files.readAllLines(
 	            path, Charset.defaultCharset());
 
@@ -85,13 +85,17 @@ public class FileUtils{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(String s : fileIn){
-			words = s.split(" ");
-			sb.append(words[0]);
-			if(fileIn.indexOf(s) != fileIn.size()){
-				sb.append(",");
-				sb.append(" ");
+		for(int i = 0; i < fileIn.size(); i++){
+			if(fileIn.get(i + 1).contains("primary")){
+				words = fileIn.get(i).split(" ");
+				sb.append(words[0]);
+				break;
 			}
+			words = fileIn.get(i).split(" ");
+			sb.append(words[0]);
+			sb.append(",");
+			sb.append(" ");
+			
 		}
 		sb.append(")");
 		return sb.toString();

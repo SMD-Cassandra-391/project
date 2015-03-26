@@ -23,6 +23,8 @@ public class DataThread implements Runnable{
 	}
 	
 	public void run(){
+		String cpyOutput;
+		String delOutput;
 		long start = System.currentTimeMillis();
 		ArrayList<String> shellOutput = new ArrayList<String>();
 		shellOutput.add(this.shellText());
@@ -30,15 +32,11 @@ public class DataThread implements Runnable{
 		
 		FileUtils.outputPage(output, new String(threadName + ".csv"), Output.DATA_DIR);
 		FileUtils.outputPage(shellOutput, new String(threadName + ".cql"), Output.SHELL_DIR);
-		
-		RunShell.movePair(Output.DATA_DIR + File.separatorChar + threadName + ".csv", 
-				         Output.SHELL_DIR + File.separatorChar + threadName + ".cql");
-		
-		RunShell.runcpy(threadName + ".cql");
-		RunShell.deletePair(threadName + ".csv", threadName + ".cql");
-		
 		long end = System.currentTimeMillis();
-		this.runtime = (end - start) / 1000;
+		this.runtime = (end - start) / 1000L;
+		RunShell.runcpy("shell/" + threadName + ".cql");
+		
+		
 	}
 	
 	public void printInfo(){
@@ -51,11 +49,11 @@ public class DataThread implements Runnable{
 	
 	public String shellText(){
 		if(type.equals(Application.DEMO)){
-			return "COPY " + Application.DEMO_KEYSPACE + "." + Application.DEMO_TABLE
-					+ tableDesc + "FROM" + threadName + ".csv;";
+			return "COPY " + Application.DEMO_KEYSPACE + "." + Application.DEMO_TABLE + " "
+					+ tableDesc + " FROM " + "'" + "data" + File.separatorChar + threadName + ".csv" + "'" +  ";";
 		}
-		return "COPY " + Application.PROJ_KEYSPACE + "." + Application.PROJ_KEYSPACE
-				+ tableDesc + "FROM" + threadName + ".csv;";
+		return "COPY " + Application.PROJ_KEYSPACE + "." + Application.PROJ_KEYSPACE + " "
+				+ tableDesc + " FROM " + threadName + ".csv;";
 	}
 	
 	
