@@ -1,7 +1,7 @@
 package main.java.com.ualberta.cmput391.W15.slmyers.column;
 import java.util.Random;
 
-public abstract class ColumnType{
+public class ColumnType{
     public static final String SEPERATOR = ",";
     protected float freq;
     protected String type;
@@ -15,4 +15,11 @@ public abstract class ColumnType{
         Random rndm = new Random();
         return min +((long)(rndm.nextDouble()*(max-min)));
     }
+    
+    public String getType() {
+		// TODO Auto-generated method stub
+		return type;
+	}
+    
+    
 }

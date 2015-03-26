@@ -4,7 +4,7 @@ import java.lang.Integer;
 public class LastIntGen extends ColumnType implements Generator{
 
     public LastIntGen(){
-
+    	this.type = "INT";
     }
 
     public String gen(){
@@ -12,4 +12,10 @@ public class LastIntGen extends ColumnType implements Generator{
         output += Integer.toString(randomInt(1,1000));
         return output;
     }
+
+	@Override
+	public String genTrue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

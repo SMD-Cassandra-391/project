@@ -6,9 +6,9 @@ import java.lang.Long;
 import java.util.Random;
 
 public class TimeSeriesGenerator extends ColumnType implements Generator {
-    private Date startDate;
-    private Date endDate;
-    private SimpleDateFormat formatter;
+    protected Date startDate;
+    protected Date endDate;
+    protected SimpleDateFormat formatter;
     private long startTime;
     private long requestTime;
     private long reportTime;
@@ -37,7 +37,7 @@ public class TimeSeriesGenerator extends ColumnType implements Generator {
         return output;
     }
 
-    private long genDate(long min, long max){
+    protected long genDate(long min, long max){
         Random random = new Random();
         return min + (long)(random.nextDouble()*(max - min));
     }
@@ -49,4 +49,10 @@ public class TimeSeriesGenerator extends ColumnType implements Generator {
     public Date getEndDate(){
         return this.endDate;
     }
+
+	@Override
+	public String genTrue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

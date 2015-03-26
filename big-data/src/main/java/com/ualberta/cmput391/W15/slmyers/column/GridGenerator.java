@@ -2,6 +2,7 @@ package main.java.com.ualberta.cmput391.W15.slmyers.column;
 import java.lang.Integer;
 
 public class GridGenerator extends ColumnType implements Generator{
+	public static final String TYPE = "INT";
     public GridGenerator(){
 
     }
@@ -13,4 +14,10 @@ public class GridGenerator extends ColumnType implements Generator{
         output = Integer.toString(city) + SEPERATOR + Integer.toString(province) + SEPERATOR;
         return output;
     }
+
+	@Override
+	public String genTrue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

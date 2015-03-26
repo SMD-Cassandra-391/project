@@ -37,46 +37,46 @@ public class PhoneGenerator extends ColumnType implements Generator{
 
     public String gen(){
     	boolean isThreeway = false;
-        String output = "";
+        StringBuilder sb = new StringBuilder(30);
         double secNumProb = 0.00001;
         double threeWayCall = 0.0001;
         // calling number
-        output += genNumber();
-        output += SEPERATOR;
+        sb.append(genNumber());
+        sb.append(SEPERATOR);
         // does calling number have a secondary number?
         if(getRndmDbl() < secNumProb){
-            output += genNumber();
+        	sb.append(genNumber());
         }
-        output += SEPERATOR;
+        sb.append(SEPERATOR);
         
         // Receiving number
-        output += genNumber();
-        output += SEPERATOR;
+        sb.append(genNumber());
+        sb.append(SEPERATOR);
         // does the receiving number have a secondary number?
         if(getRndmDbl() < secNumProb){
-            output += genNumber();
+        	sb.append(genNumber());
         }
-        output += SEPERATOR;
+        sb.append(SEPERATOR);
         
         // is the call a "3 way call"
         if(getRndmDbl() < threeWayCall){
-            output += genNumber();
+        	sb.append(genNumber());
             isThreeway = true;
         }
-        output += SEPERATOR;
+        sb.append(SEPERATOR);
         // does the 3 way caller have a scecondary number?
         if(isThreeway){
         	if(getRndmDbl() < secNumProb){
-        		output += genNumber();
+        		sb.append(genNumber());
         	}
         }
-        output += SEPERATOR;
+        sb.append(SEPERATOR);
         
         
-        return output;
+        return sb.toString();
     }
 
-    private String genNumber(){
+    protected String genNumber(){
         String areaCode = null;
         String prefix = null;
         String suffix = null;
@@ -133,4 +133,10 @@ public class PhoneGenerator extends ColumnType implements Generator{
         Random rndm = new Random();
         return rndm.nextDouble();
     }
+
+	@Override
+	public String genTrue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

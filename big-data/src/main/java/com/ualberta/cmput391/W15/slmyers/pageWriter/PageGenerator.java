@@ -8,7 +8,7 @@ public class PageGenerator {
 	// around 1000 chars per line
 	private static final int CHAR_CAP = 1000;
 	// 10000 rows per csv file
-	public static final int PAGE_SIZE = 1000;
+	public static final int PAGE_SIZE = 10000;
 	private ArrayList<Generator> cols;
 	private StringBuilder sb;
 

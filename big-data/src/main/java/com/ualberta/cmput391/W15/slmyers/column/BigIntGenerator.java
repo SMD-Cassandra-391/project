@@ -4,8 +4,9 @@ import java.lang.Long;
 public class BigIntGenerator extends ColumnType implements Generator {
     public final long MAX = 50000000000000L; 
     public final long MIN = 10000000000000L;
+    
     public BigIntGenerator(){
-
+    	this.type = "BIG INT";
     }
 
     public String gen(){
@@ -14,4 +15,7 @@ public class BigIntGenerator extends ColumnType implements Generator {
         return output;
     }
 
+    public String genTrue(){
+    	return Long.toString(randomLong(MIN, MAX));
+    }
 }

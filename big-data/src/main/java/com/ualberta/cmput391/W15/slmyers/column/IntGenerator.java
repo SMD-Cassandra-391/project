@@ -6,6 +6,10 @@ public class IntGenerator extends ColumnType implements Generator{
     public IntGenerator(int series){
         this.series = series;
     }
+    
+    public IntGenerator(){
+    	this.type = "INT";
+    }
 
     public String gen(){
         String output = "";
@@ -15,5 +19,9 @@ public class IntGenerator extends ColumnType implements Generator{
             output += SEPERATOR; 
         }
         return output;
+    }
+    
+    public String genTrue(){
+    	return Integer.toString(randomInt(1,1000));
     }
 }
