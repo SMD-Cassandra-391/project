@@ -54,7 +54,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>main.java.com.ualberta.cmput391.W15.slmyers.pageWriter.Output</mainClass>
+							<mainClass>output.Output</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
