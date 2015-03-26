@@ -45,7 +45,103 @@ Processed 1000 rows; Write: 0.00 rows/s
 
 163s
 -------------------------------------------------------------
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.95 rows/s
+10000 rows imported in 33 minutes and 52.516 seconds.
 
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.93 rows/s
+10000 rows imported in 33 minutes and 56.956 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.94 rows/s
+10000 rows imported in 33 minutes and 59.158 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.92 rows/s
+10000 rows imported in 34 minutes and 3.355 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.92 rows/s
+10000 rows imported in 34 minutes and 4.499 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.92 rows/s
+10000 rows imported in 34 minutes and 5.076 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.91 rows/s
+10000 rows imported in 34 minutes and 6.960 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+Processed 2000 rows; Write: 0.00 rows/s
+Processed 3000 rows; Write: 0.00 rows/s
+Processed 4000 rows; Write: 0.00 rows/s
+Processed 5000 rows; Write: 0.00 rows/s
+Processed 6000 rows; Write: 0.00 rows/s
+Processed 7000 rows; Write: 0.00 rows/s
+Processed 8000 rows; Write: 0.00 rows/s
+Processed 9000 rows; Write: 0.00 rows/s
+Processed 10000 rows; Write: 4.92 rows/s
+10000 rows imported in 34 minutes and 8.817 seconds.
+
+2048s
 
 
 
