@@ -13,6 +13,7 @@ public class RunShell {
 	private static final String CQLSH = "./../../../cassandra/apache-cassandra-2.1.3/bin/cqlsh";
 	private static final int BUFFER_SIZE = 150;
 	private static final String SPACE = " ";
+	private static final String LOCAL_HOST = "127.0.0.1";
 	
 	public static void movePair(String csvFile, String CQLSHFile){
 		moveCommand(Output.DATA_DIR + csvFile);
@@ -55,6 +56,21 @@ public class RunShell {
 		cmd.append("-f");
 		cmd.append(SPACE);
 		cmd.append(file);
+		return executeCommand(cmd.toString());
+	}
+	
+	/*
+	 * Then, load SSTables to Cassandra using sstableloader:
+	 * sstableloader -d <ip address of the node> data/quote/historical_prices
+	 */
+	
+	public static String SSTcmd(String file){
+		StringBuilder cmd = new StringBuilder(BUFFER_SIZE);
+		cmd.append("./../cassandra/apache-cassandra-2.0.5/bin/sstableloader");
+		cmd.append(SPACE);
+		cmd.append(LOCAL_HOST);
+		cmd.append(SPACE);
+		cmd.append("data/sstable");
 		return executeCommand(cmd.toString());
 	}
 	
