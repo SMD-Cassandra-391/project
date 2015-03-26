@@ -1,0 +1,52 @@
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 37.884 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 37.941 seconds.
+
+----------------------------------------------------------------------
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 1 minute and 17.886 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 1 minute and 17.863 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 1 minute and 17.785 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 1 minute and 17.848 seconds.
+
+78
+-------------------------------------------------------------------
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 43.606 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 44.772 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 47.373 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 48.291 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 48.216 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 48.254 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 48.081 seconds.
+
+Processed 1000 rows; Write: 0.00 rows/s
+1000 rows imported in 2 minutes and 48.287 seconds.
+
+163s
+-------------------------------------------------------------
+
+
+
+
+2MB/1000 rows
