@@ -18,12 +18,14 @@ public class Application {
 	public static final String PROJ_KEYSPACE = "proj_keyspace";
 	public static final String PROJ_TABLE = "proj_table";
 	public static final int NUM_COLS = 470;
-	public static final int NUM_ROWS = 100000;
+	public static final int NUM_ROWS = 100;
 	public static final String DATA_FOLDER = "data/";
 	// used in the COPY file basically describes the rows in the csv file
 	private static String TABLE_DESCR = null;
 	private static String CREATE_STATMENT = null;
 	private static String QUESTION_STRING = null;
+	public static final String PATH_TO_DATA = DATA_FOLDER +  DEMO_KEYSPACE 
+											  + File.separatorChar + DEMO_TABLE;
 	public static File OUTPUT_DIR = null;
 	
 	protected Application(){

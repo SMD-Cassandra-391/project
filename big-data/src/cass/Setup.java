@@ -23,26 +23,16 @@ public class Setup {
 			throw new RuntimeException("Setup.type must equal " + Application.DEMO
 										+" or " + Application.PROJ);
 		}
-		Application.getApp().buildCluster();
-		Application.getApp().connectSession();
-		Thread t = new Thread(){
-			public void run(){
-				session = Application.getApp().getSession();
-			}
-		};
-		t.start();
-		try {
-			t.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		this.readTableString();
 	}
 	
 	public void execute(){
+		Application.getApp().buildCluster();
+		Application.getApp().connectSession();
+		session = Application.getApp().getSession();
 		createKeyspace();
     	createTable();
+    	Application.getApp().closeCluster();
 	}
 	
 	public void dropKeyspace(){

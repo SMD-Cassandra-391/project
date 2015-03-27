@@ -2,9 +2,8 @@ package output;
 
 import java.io.File;
 
+import loader.JmxBulkLoader;
 import cass.Application;
-import cass.BulkLoader;
-import cass.RunShell;
 import cass.SSTwriter;
 import cass.Setup;
 
@@ -13,7 +12,9 @@ import cass.Setup;
 public class Output {
 	public static Application app;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		
+		
 		
 		initApp();
 		Thread tt = new Thread(){
@@ -43,17 +44,19 @@ public class Output {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String host = Application.getProperty("jmxhost", "localhost");
-		int port = Integer.parseInt(Application.getProperty("jmxport", "7199"));
-		BulkLoader bl = new BulkLoader(host, port);
-		bl.execute();
-		
+		File file = new File(Application.PATH_TO_DATA);
+		final String path = file.getAbsolutePath();
+		System.out.println("path is: " + path);
+		JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
+		jmxLoader.bulkLoad(path);
+		jmxLoader.close();
 		long end = System.currentTimeMillis();
 		//RunShell.SSTcmd(Application.DATA_FOLDER + File.separatorChar + Application.DEMO_KEYSPACE + File.separatorChar
 		//		        + Application.DEMO_TABLE);
 		
 		
 		System.out.println("Total time: " + (end - start)/1000 + " seconds.");
+		System.exit(0);
 	}
 
 	public static void initApp(){

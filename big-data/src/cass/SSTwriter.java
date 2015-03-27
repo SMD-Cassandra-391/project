@@ -1,5 +1,6 @@
 package cass;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -18,9 +19,9 @@ public class SSTwriter {
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
 			"yyyy-MM-dd");
 
-	public static final String SCHEMA = "CREATE TABLE IF NOT EXISTS "
+	public static final String SCHEMA = "CREATE TABLE "
 			+ Application.DEMO_KEYSPACE + "." + Application.DEMO_TABLE + " (" 
-			+ Application.getApp().getCreateStmnt() + ")";
+			+ Application.getApp().getCreateStmnt() + ");";
 
 	/**
 	 * INSERT statement to bulk load. It is like prepared statement. You fill in
@@ -40,7 +41,7 @@ public class SSTwriter {
 		// Prepare SSTable writer
 		CQLSSTableWriter.Builder builder = CQLSSTableWriter.builder();
 		// set output directory
-		builder.inDirectory(Application.DATA_FOLDER)
+		builder.inDirectory(Application.DATA_FOLDER + Application.DEMO_KEYSPACE + File.separatorChar + Application.DEMO_TABLE)
 		// set target schema
 				.forTable(SCHEMA)
 				// set CQL statement to put data
