@@ -24,7 +24,7 @@ public class DateGenerator extends ColumnObject implements ObjectGenerator {
 		long startLong = startDate.getTime();
         long endLong = endDate.getTime();
         
-		return Long.toString(genDate(startLong, endLong));
+		return new Date((genDate(startLong, endLong)));
 	}
 	
 	private long genDate(long min, long max){

@@ -15,12 +15,12 @@ public class RunShell {
 	private static final int BUFFER_SIZE = 150;
 	private static final String SPACE = " ";
 	private static final String LOCAL_HOST = "127.0.0.1";
-	
+	/*
 	public static void movePair(String csvFile, String CQLSHFile){
 		moveCommand(Output.DATA_DIR + csvFile);
 		moveCommand(Output.SHELL_DIR + CQLSHFile);
 	}
-	
+	*/
 	private static void moveCommand(String file){
 		StringBuilder moveCommand = new StringBuilder(BUFFER_SIZE);
 		moveCommand.append("mv");
@@ -41,7 +41,7 @@ public class RunShell {
 		cmd.append(CQLSHFile);
 		return executeCommand(cmd.toString());
 	}
-	
+	/*
 	public static String deletePair(String csvFile, String CQLSHFile){
 		StringBuilder sb = new StringBuilder();
 		sb.append(deleteCmd(Output.DATA_DIR + File.separatorChar + csvFile));
@@ -49,7 +49,7 @@ public class RunShell {
 		sb.append(deleteCmd(Output.SHELL_DIR + File.separatorChar + CQLSHFile));
 		return sb.toString();
 	}
-	
+	*/
 	private static String deleteCmd(String file){
 		StringBuilder cmd = new StringBuilder(BUFFER_SIZE);
 		cmd.append("rm");
@@ -67,11 +67,13 @@ public class RunShell {
 	
 	public static String SSTcmd(String file){
 		StringBuilder cmd = new StringBuilder(BUFFER_SIZE);
-		cmd.append("./../cassandra/apache-cassandra-2.0.5/bin/sstableloader");
+		cmd.append("./../../../cassandra/apache-cassandra-2.1.3/bin/sstableloader");
+		cmd.append(SPACE);
+		cmd.append("-d");
 		cmd.append(SPACE);
 		cmd.append(LOCAL_HOST);
 		cmd.append(SPACE);
-		cmd.append("data/sstable");
+		cmd.append(file);
 		return executeCommand(cmd.toString());
 	}
 	

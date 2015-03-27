@@ -21,47 +21,27 @@ public class ObjectListGenerator {
 
 	private void initializeCols() {
 		cols = new ArrayList<ObjectGenerator>();
-
-		cols.add(new IntGenerator());
-		cols.add(new IntGenerator());
-		for (int i = 0; i < 3; i++) {
-			cols.add(new DateGenerator());
+		String schema = Application.getApp().getCreateStmnt();
+		String[] entries = schema.split(",");
+		for(int i = 0; i < entries.length; i++){
+			if(entries[i].contains("bigint")){
+				cols.add(new BigIntGenerator());
+			}else if(entries[i].contains("int")){
+				cols.add(new IntGenerator());
+			}else if(entries[i].contains("timestamp")){
+				cols.add(new DateGenerator());
+			}else if(i >= 5 && i <= 10){
+				cols.add(new PhoneGenerator());
+			}else if(entries[i].contains("LONGITUDE")){
+				cols.add(new LongitudeGenerator());
+			}else if(entries[i].contains("LATITUDE")){
+				cols.add(new LatGenerator());
+			}else if(entries[i].contains("varchar")){
+				cols.add(new IPGenerator());
+			}else if(entries[i].contains("primary key(SEQ_NUM)")){
+				break;
+			}
 		}
-		for (int i = 0; i < 6; i++) {
-			cols.add(new PhoneGenerator());
-		}
-
-		cols.add(new LatGenerator());
-		cols.add(new LongitudeGenerator());
-
-		cols.add(new IntGenerator());
-		cols.add(new IntGenerator());
-		cols.add(new LatGenerator());
-		cols.add(new LongitudeGenerator());
-		cols.add(new IntGenerator());
-		cols.add(new IntGenerator());
-		cols.add(new IntGenerator());
-		cols.add(new BigIntGenerator());
-		for (int i = 0; i < 7; i++)
-			cols.add(new IntGenerator());
-
-		cols.add(new BigIntGenerator());
-		cols.add(new IPGenerator());
-		for (int i = 0; i < 16; i++)
-			cols.add(new IntGenerator());
-
-		cols.add(new IPGenerator());
-		cols.add(new IPGenerator());
-		for (int i = 0; i < 31; i++)
-			cols.add(new IntGenerator());
-
-		cols.add(new IPGenerator());
-		for (int i = 0; i < 7; i++)
-			cols.add(new IntGenerator());
-
-		cols.add(new IPGenerator());
-		for (int i = 0; i < 382; i++)
-			cols.add(new IntGenerator());
 	}
 	
 	public ArrayList<Object> genRow(){

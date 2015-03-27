@@ -31,8 +31,7 @@ public class DataThread implements Runnable{
 		shellOutput.add(this.shellText());
 		output = pg.generatePage();
 		
-		FileUtils.outputPage(output, new String(threadName + ".csv"), Output.DATA_DIR);
-		FileUtils.outputPage(shellOutput, new String(threadName + ".cql"), Output.SHELL_DIR);
+		
 		long end = System.currentTimeMillis();
 		this.runtime = (end - start) / 1000L;
 		RunShell.runcpy("shell/" + threadName + ".cql");

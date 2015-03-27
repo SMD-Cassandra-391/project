@@ -28,7 +28,7 @@ public class LongitudeGenerator extends ColumnObject implements ObjectGenerator 
         
         
         
-        return foundLongitude;
+        return new Float(foundLongitude);
 	}
 
 }

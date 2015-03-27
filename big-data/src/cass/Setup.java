@@ -6,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 
 public class Setup {
@@ -24,8 +23,20 @@ public class Setup {
 			throw new RuntimeException("Setup.type must equal " + Application.DEMO
 										+" or " + Application.PROJ);
 		}
-		session = Application.getApp().getSession();
-		
+		Application.getApp().buildCluster();
+		Application.getApp().connectSession();
+		Thread t = new Thread(){
+			public void run(){
+				session = Application.getApp().getSession();
+			}
+		};
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.readTableString();
 	}
 	
@@ -44,10 +55,10 @@ public class Setup {
 	
 	public void dropTable(){
 		if(type.equals(Application.DEMO)){
-			session.execute("DROP TABLE " + Application.DEMO + 
+			session.execute("DROP TABLE " + Application.DEMO_KEYSPACE + 
 							"." + Application.DEMO_TABLE + ";");
 		}else{
-			session.execute("DROP KEYSPACE " + Application.PROJ +
+			session.execute("DROP KEYSPACE " + Application.PROJ_KEYSPACE +
 							"." + Application.PROJ_TABLE + ";");
 		}
 	}

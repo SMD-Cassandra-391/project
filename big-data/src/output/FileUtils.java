@@ -100,4 +100,21 @@ public class FileUtils{
 		sb.append(")");
 		return sb.toString();
 	}
+	
+	public static String getCreateStmnt(){
+		StringBuilder sb = new StringBuilder(2000);
+		ArrayList<String> lines = null;
+		
+		try {
+			lines = readFileDesc();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(String line : lines){
+			sb.append(line);
+		}
+		return sb.toString();
+		
+	}
 }

@@ -1,47 +1,70 @@
 package output;
 
 import java.io.File;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import cass.Application;
+import cass.BulkLoader;
+import cass.RunShell;
 import cass.SSTwriter;
 import cass.Setup;
 
 
+
 public class Output {
-	public static final int COL_NUM = 470;
-	public static final String DATA_DIR = "data";
-	public static final String SHELL_DIR = "shell";
 	public static Application app;
-	public static String tableDesc = new String();
 	
 	public static void main(String[] args) {
+		
 		initApp();
-		String questionString = buildQuestionString(COL_NUM);
-		SSTwriter writer = new SSTwriter(createStatement, tableDesc, questionString); 
+		Thread tt = new Thread(){
+			public void run(){
+				Setup setup = new Setup(Application.DEMO);
+				setup.execute();
+			}
+		};
+		tt.start();
+		try {
+			tt.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		long start = System.currentTimeMillis();
+		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS); 
+		Thread t = new Thread(){
+			public void run(){
+				writer.execute();
+			}
+		};
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String host = Application.getProperty("jmxhost", "localhost");
+		int port = Integer.parseInt(Application.getProperty("jmxport", "7199"));
+		BulkLoader bl = new BulkLoader(host, port);
+		bl.execute();
+		
+		long end = System.currentTimeMillis();
+		//RunShell.SSTcmd(Application.DATA_FOLDER + File.separatorChar + Application.DEMO_KEYSPACE + File.separatorChar
+		//		        + Application.DEMO_TABLE);
+		
+		
+		System.out.println("Total time: " + (end - start)/1000 + " seconds.");
 	}
 
 	public static void initApp(){
 		app = Application.getApp();
-		tableDesc = app.getTableDesc();
+		app.setTableDesc();
+		app.setCreateStmnt();
+		app.buildQuestionString();
+		app.createOutputDir();
 	}
 	
-	public static String buildQuestionString(int colNum){
-		// 470 ?
-		// 469 ,
-		// 469 " "
-		// means 1408 chars going to 1420 for extra safety
-		StringBuilder sb = new StringBuilder(1420);
-		for(int i = 0; i < 469; i++){
-			sb.append("?");
-			sb.append(",");
-			sb.append(" ");
-		}
-		sb.append("?");
-		return new String(sb.toString());
-	}
+	
 	
 	public static void printStartMsg() {
 		System.out.println("**********************************");

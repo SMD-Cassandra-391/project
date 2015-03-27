@@ -22,6 +22,6 @@ public class LatGenerator extends ColumnObject implements ObjectGenerator{
         double y = w * Math.sin(t);
 
         double foundLatitude = y + Y;
-        return new Double(foundLatitude);
+        return new Float(foundLatitude);
     }
 }
