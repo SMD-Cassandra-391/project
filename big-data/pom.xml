@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ualberta.cmput391.W15</groupId>
-	<artifactId>big-data</artifactId>
+	<artifactId>DatabaseGenerator</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>DatabaseBuilder</name>
+	<name>big-data</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>com.datastax.cassandra</groupId>
 			<artifactId>cassandra-driver-core</artifactId>
-			<version>2.0.5</version>
+			<version>2.1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cassandra</groupId>
@@ -33,9 +33,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-
 	</dependencies>
-
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -47,7 +45,6 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -59,7 +56,6 @@
 					</archive>
 				</configuration>
 			</plugin>
-
 			<!-- Includes the runtime dependencies -->
 			<plugin>
 				<groupId>org.dstovall</groupId>
@@ -75,7 +71,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<!-- One-Jar is in the googlecode repository -->
 	<pluginRepositories>
 		<pluginRepository>
