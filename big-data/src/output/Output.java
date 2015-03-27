@@ -22,19 +22,19 @@ public class Output {
 		}
 		type = args[0];
 		initApp(type);
-		Thread tt = new Thread(){
-			public void run(){
-				Setup setup = new Setup(Application.DEMO);
-				setup.execute();
-			}
-		};
-		tt.start();
-		try {
-			tt.join();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		Thread tt = new Thread(){
+//			public void run(){
+//				Setup setup = new Setup(Application.DEMO);
+//				setup.execute();
+//			}
+//		};
+//		tt.start();
+//		try {
+//			tt.join();
+//		} catch (InterruptedException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		long start = System.currentTimeMillis();
 		run();

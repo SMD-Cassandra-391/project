@@ -130,6 +130,8 @@ public class Application {
 			throw new RuntimeException("Cannot create output directory: "
 					+ outputDir);
 		}
+		System.out.println(Application.DATA_FOLDER + File.separator
+				+ TYPE_KEYSPACE + File.separator + TYPE_TABLE);
 	}
 	public static String getProperty(String name, String defaultValue){		
 		return System.getProperty(name) == null ? defaultValue : System.getProperty(name); 
