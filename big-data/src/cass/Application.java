@@ -17,17 +17,21 @@ public class Application {
 	public static final String DEMO_TABLE = "demo_table";
 	public static final String PROJ_KEYSPACE = "proj_keyspace";
 	public static final String PROJ_TABLE = "proj_table";
+	public static final String TEST_TABLE = "test_table";
+	public static final String TEST_KEYSPACE = "test_keyspace";
 	public static final int NUM_COLS = 470;
-	public static final int NUM_ROWS = 100;
-	public static final String DATA_FOLDER = "data/";
+	public static int NUM_ROWS = 10000;
+	public static final String DATA_FOLDER = "data";
 	// used in the COPY file basically describes the rows in the csv file
 	private static String TABLE_DESCR = null;
 	private static String CREATE_STATMENT = null;
 	private static String QUESTION_STRING = null;
-	public static final String PATH_TO_DATA = DATA_FOLDER +  DEMO_KEYSPACE 
-											  + File.separatorChar + DEMO_TABLE;
+	public static final String PATH_TO_DATA = DATA_FOLDER  + File.separatorChar +  TEST_KEYSPACE 
+											  + File.separatorChar + TEST_TABLE;
 	public static File OUTPUT_DIR = null;
-	
+	public static String RUN_TYPE = null;
+	public static String TYPE_KEYSPACE = null;
+	public static String TYPE_TABLE = null;
 	protected Application(){
 		// empty constructor
 	}
@@ -99,13 +103,29 @@ public class Application {
 		return QUESTION_STRING;
 	}
 	
+	public void setType(String type){
+		RUN_TYPE = new String(type);
+		if(type.equals("test")){
+			TYPE_KEYSPACE = TEST_KEYSPACE;
+			TYPE_TABLE = TEST_TABLE;
+		}else if(type.equals("demo")){
+			TYPE_KEYSPACE = DEMO_KEYSPACE;
+			TYPE_TABLE = DEMO_TABLE;
+		}else if(type.equals("project")){
+			TYPE_KEYSPACE = PROJ_KEYSPACE;
+			TYPE_TABLE = PROJ_TABLE;
+		}
+		
+		
+	}
+	
 	/*
 	 * this is where the SST table folder structure is created need to change to allow 
 	 * for uploading data to cassandra via sstableloader
 	 */
 	public void createOutputDir(){
 		File outputDir = new File(Application.DATA_FOLDER + File.separator
-				+ DEMO_KEYSPACE + File.separator + DEMO_TABLE);
+				+ TYPE_KEYSPACE + File.separator + TYPE_TABLE);
 		if (!outputDir.exists() && !outputDir.mkdirs()) {
 			throw new RuntimeException("Cannot create output directory: "
 					+ outputDir);

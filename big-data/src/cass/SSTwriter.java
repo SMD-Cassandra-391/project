@@ -20,7 +20,7 @@ public class SSTwriter {
 			"yyyy-MM-dd");
 
 	public static final String SCHEMA = "CREATE TABLE "
-			+ Application.DEMO_KEYSPACE + "." + Application.DEMO_TABLE + " (" 
+			+ Application.TYPE_KEYSPACE + "." + Application.TYPE_TABLE + " (" 
 			+ Application.getApp().getCreateStmnt() + ");";
 
 	/**
@@ -28,7 +28,7 @@ public class SSTwriter {
 	 * place holder for each data.
 	 */
 	public static final String INSERT_STMT = String.format("INSERT INTO "
-			+ Application.DEMO_KEYSPACE + "." + Application.DEMO_TABLE 
+			+ Application.TYPE_KEYSPACE + "." + Application.TYPE_TABLE 
 			+ Application.getApp().getTableDesc() + " VALUES ("
 			+ Application.getApp().getQuestionString() + ")");
 
@@ -41,7 +41,7 @@ public class SSTwriter {
 		// Prepare SSTable writer
 		CQLSSTableWriter.Builder builder = CQLSSTableWriter.builder();
 		// set output directory
-		builder.inDirectory(Application.DATA_FOLDER + Application.DEMO_KEYSPACE + File.separatorChar + Application.DEMO_TABLE)
+		builder.inDirectory(Application.DATA_FOLDER + Application.TYPE_KEYSPACE + File.separatorChar + Application.TYPE_TABLE)
 		// set target schema
 				.forTable(SCHEMA)
 				// set CQL statement to put data
