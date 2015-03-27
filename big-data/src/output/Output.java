@@ -14,46 +14,50 @@ public class Output {
 	
 	public static void main(String[] args) throws Exception {
 		String type;
-		System.out.println(args.length);
+		if(args.length != 1){
+			System.out.println("incorrect usage");
+			System.out.println("correct usage:");
+			System.out.println("java -jar DatabaseGenerator-1.0-SNAPSHOT.one-jar.jar");
+		}
 		
 		
 		
-//		initApp();
-//		Thread tt = new Thread(){
-//			public void run(){
-//				Setup setup = new Setup(Application.DEMO);
-//				setup.execute();
-//			}
-//		};
-//		tt.start();
-//		try {
-//			tt.join();
-//		} catch (InterruptedException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		long start = System.currentTimeMillis();
-//		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS); 
-//		Thread t = new Thread(){
-//			public void run(){
-//				writer.execute();
-//			}
-//		};
-//		t.start();
-//		try {
-//			t.join();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		File file = new File(Application.PATH_TO_DATA);
-//		final String path = file.getAbsolutePath();
-//		System.out.println("path is: " + path);
-//		JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
-//		jmxLoader.bulkLoad(path);
-//		jmxLoader.close();
-//		long end = System.currentTimeMillis();
-//		System.out.println("Total time: " + (end - start)/1000 + " seconds.");
+		initApp();
+		Thread tt = new Thread(){
+			public void run(){
+				Setup setup = new Setup(Application.DEMO);
+				setup.execute();
+			}
+		};
+		tt.start();
+		try {
+			tt.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		long start = System.currentTimeMillis();
+		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS); 
+		Thread t = new Thread(){
+		public void run(){
+				writer.execute();
+			}
+		};
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		File file = new File(Application.PATH_TO_DATA);
+		final String path = file.getAbsolutePath();
+		System.out.println("path is: " + path);
+		JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
+		jmxLoader.bulkLoad(path);
+		jmxLoader.close();
+		long end = System.currentTimeMillis();
+		System.out.println("Total time: " + (end - start)/1000 + " seconds.");
 		
 	}
 
