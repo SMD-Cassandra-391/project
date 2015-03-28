@@ -3,6 +3,7 @@ package cass;
 import java.io.File;
 
 import output.FileUtils;
+import output.Output;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
@@ -123,15 +124,24 @@ public class Application {
 	 * this is where the SST table folder structure is created need to change to allow 
 	 * for uploading data to cassandra via sstableloader
 	 */
-	public void createOutputDir(){
-		File outputDir = new File(Application.DATA_FOLDER + File.separator
-				+ TYPE_KEYSPACE + File.separator + TYPE_TABLE);
-		if (!outputDir.exists() && !outputDir.mkdirs()) {
-			throw new RuntimeException("Cannot create output directory: "
-					+ outputDir);
+	public void createOutputDirs(){
+		File[] files = new File[Output.NTHREDS];
+		
+		
+		for(int i = 0; i < Output.NTHREDS; i++){
+			files[i] = new File("thread" + i + File.separatorChar + TYPE_KEYSPACE + File.separatorChar + TYPE_TABLE);
 		}
-		System.out.println(Application.DATA_FOLDER + File.separator
-				+ TYPE_KEYSPACE + File.separator + TYPE_TABLE);
+		
+		for(int i = 0; i < Output.NTHREDS; i++){
+			if(!files[i].exists() && !files[i].mkdirs()){
+				throw new RuntimeException("Cannot create output directory: "
+						+ files[i]);
+			}
+		}
+		
+		
+		
+		
 	}
 	public static String getProperty(String name, String defaultValue){		
 		return System.getProperty(name) == null ? defaultValue : System.getProperty(name); 

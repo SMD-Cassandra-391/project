@@ -12,17 +12,19 @@ import cass.SSTwriter;
 
 public class DataThread implements Runnable{
 	private String threadName;
-	
-	public DataThread(String tableDesc, String folder){
-		threadName = new String(UUID.randomUUID().toString());
-		
+	private String folder;
+	public DataThread(String threadName, String folder){
+		this.threadName = threadName;
+		this.folder = folder;
 	}
 	
 	public void run(){
-		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS); 
-		File file = new File(threadName + File.separatorChar + Application.TYPE_KEYSPACE 
-							+ File.separatorChar + Application.TYPE_TABLE);
+		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS, folder); 
+		
+		File file = new File(folder);
 		final String path = file.getAbsolutePath();
+		writer.execute();
+		writer.close();
 		//JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
 	}
 	

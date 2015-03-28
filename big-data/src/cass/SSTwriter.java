@@ -32,7 +32,7 @@ public class SSTwriter {
 			+ Application.getApp().getTableDesc() + " VALUES ("
 			+ Application.getApp().getQuestionString() + ")");
 
-	public SSTwriter(int numRows) {
+	public SSTwriter(int numRows, String folder) {
 		this.gen = new ObjectListGenerator();
 		this.numRows = numRows;
 	
@@ -41,7 +41,7 @@ public class SSTwriter {
 		// Prepare SSTable writer
 		CQLSSTableWriter.Builder builder = CQLSSTableWriter.builder();
 		// set output directory
-		builder.inDirectory(Application.DATA_FOLDER + File.separatorChar + Application.TYPE_KEYSPACE + File.separatorChar + Application.TYPE_TABLE)
+		builder.inDirectory(folder)
 		// set target schema
 				.forTable(SCHEMA)
 				// set CQL statement to put data
