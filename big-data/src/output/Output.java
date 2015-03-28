@@ -22,22 +22,22 @@ public class Output {
 		}
 		type = args[0];
 		initApp(type);
-//		Thread tt = new Thread(){
-//			public void run(){
-//				Setup setup = new Setup(Application.DEMO);
-//				setup.execute();
-//			}
-//		};
-//		tt.start();
-//		try {
-//			tt.join();
-//		} catch (InterruptedException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+		Thread tt = new Thread(){
+			public void run(){
+				Setup setup = new Setup(Application.RUN_TYPE);
+				setup.execute();
+			}
+		};
+		tt.start();
+		try {
+			tt.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		long start = System.currentTimeMillis();
-		run();
+		//run();
 		long end = System.currentTimeMillis();
 		System.out.println("Total time: " + (end - start)/1000 + " seconds.");
 		System.exit(0);
@@ -56,7 +56,7 @@ public class Output {
 		String type = Application.RUN_TYPE;
 		int iterations = 0;
 		if(type.equals("test")){
-			iterations = 10;
+			iterations = 1;
 		}else if(type.equals("demo")){
 			iterations = 1000;
 		}else if(type.equals("project")){

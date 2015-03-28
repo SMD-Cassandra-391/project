@@ -19,10 +19,6 @@ public class Setup {
 	
 	public Setup(String type){
 		this.type = new String(type);
-		if(!(type.equals(Application.DEMO) || type.equals(Application.PROJ))){
-			throw new RuntimeException("Setup.type must equal " + Application.DEMO
-										+" or " + Application.PROJ);
-		}
 		this.readTableString();
 	}
 	
@@ -44,36 +40,26 @@ public class Setup {
 	}
 	
 	public void dropTable(){
-		if(type.equals(Application.DEMO)){
-			session.execute("DROP TABLE " + Application.DEMO_KEYSPACE + 
-							"." + Application.DEMO_TABLE + ";");
-		}else{
-			session.execute("DROP KEYSPACE " + Application.PROJ_KEYSPACE +
-							"." + Application.PROJ_TABLE + ";");
-		}
+		session.execute("DROP TABLE " + Application.TYPE_KEYSPACE + 
+						"." + Application.TYPE_TABLE + ";");
+		
 	}
 	
 	public void createKeyspace(){
+		String stmnt = "CREATE KEYSPACE IF NOT EXISTS " + Application.TYPE_KEYSPACE
+				+ " WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };";
+		System.out.println("Keyspace: " + stmnt);
+		session.execute(stmnt);
 		
-		if(type.equals(Application.DEMO)){
-			session.execute("CREATE KEYSPACE IF NOT EXISTS " + Application.DEMO_KEYSPACE
-							+ " WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };");
-		}else{
-			session.execute("CREATE KEYSPACE IF NOT EXISTS " + Application.PROJ_KEYSPACE
-							+ " WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };");
-		}
 		
 	}
 	
 	public void createTable(){
+		String stmnt = "CREATE TABLE IF NOT EXISTS " + Application.TYPE_KEYSPACE + "." + Application.TYPE_TABLE + " ("
+				+ this.createStatement + ");";
+		System.out.println("Table: " + stmnt);
+		session.execute(stmnt);
 		
-		if(type.equals(Application.DEMO)){
-			session.execute("CREATE TABLE IF NOT EXISTS " + Application.DEMO_KEYSPACE + "." + Application.DEMO_TABLE + " ("
-							+ this.createStatement + ");");
-		}else{
-			session.execute("CREATE TABLE IF NOT EXISTS " + Application.PROJ_KEYSPACE + "." + Application.PROJ_TABLE + " "
-							+ this.createStatement + ");");
-		}
 		
 	}
 	
