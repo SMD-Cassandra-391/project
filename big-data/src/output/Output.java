@@ -1,7 +1,10 @@
 package output;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import loader.JmxBulkLoader;
 import cass.Application;
@@ -14,6 +17,7 @@ public class Output {
 	public static Application app;
 	
 	public static void main(String[] args) throws Exception {
+		File file = new File("log.txt");
 		String type;
 		if(args.length != 1){
 			System.out.println("incorrect usage");
@@ -37,9 +41,14 @@ public class Output {
 		}
 		
 		long start = System.currentTimeMillis();
-		//run();
+		run();
 		long end = System.currentTimeMillis();
-		System.out.println("Total time: " + (end - start)/1000 + " seconds.");
+		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Total time: " + (end - start)/1000 + " seconds.", true)))) {
+		    out.println("the text");
+		}catch (IOException e) {
+		    //exception handling left as an exercise for the reader
+		}
+		
 		System.exit(0);
 	}
 
@@ -56,7 +65,7 @@ public class Output {
 		String type = Application.RUN_TYPE;
 		int iterations = 0;
 		if(type.equals("test")){
-			iterations = 1;
+			iterations = 10;
 		}else if(type.equals("demo")){
 			iterations = 1000;
 		}else if(type.equals("project")){
