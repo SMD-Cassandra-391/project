@@ -25,6 +25,7 @@ public class Output {
 		}
 		type = args[0];
 		initApp(type);
+		/*
 		Thread tt = new Thread(){
 			public void run(){
 				Setup setup = new Setup(Application.RUN_TYPE);
@@ -38,7 +39,7 @@ public class Output {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		*/
 		long start = System.currentTimeMillis();
 		run();
 		long end = System.currentTimeMillis();
@@ -49,6 +50,8 @@ public class Output {
 		System.exit(0);
 	}
 
+
+	
 	public static void initApp(String type){
 		app = Application.getApp();
 		app.setTableDesc();
@@ -62,7 +65,7 @@ public class Output {
 		String type = Application.RUN_TYPE;
 		int iterations = 0;
 		if(type.equals("test")){
-			iterations = 2;
+			iterations = 1;
 		}else if(type.equals("demo")){
 			iterations = 1000;
 		}else if(type.equals("project")){
@@ -73,16 +76,16 @@ public class Output {
 		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS); 
 		File file = new File(Application.PATH_TO_DATA);
 		final String path = file.getAbsolutePath();
-		JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
+		//JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
 		
 		for(int i = 0; i < iterations; i++){
 			writer.execute();
-			jmxLoader.bulkLoad(path);
+			//jmxLoader.bulkLoad(path);
 			// check to see if this kills folder too
 			purgeDirectory(Application.PATH_TO_DATA);
 		}
 		writer.close();
-		jmxLoader.close();
+		//jmxLoader.close();
 	}
 	
 	

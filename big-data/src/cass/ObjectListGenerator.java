@@ -9,6 +9,7 @@ import objectGenerator.IntGenerator;
 import objectGenerator.LatGenerator;
 import objectGenerator.LongitudeGenerator;
 import objectGenerator.ObjectGenerator;
+import objectGenerator.PhGenerator;
 import objectGenerator.PhoneGenerator;
 
 
@@ -18,7 +19,7 @@ public class ObjectListGenerator {
 	public ObjectListGenerator() {
 		this.initializeCols();
 	}
-
+	
 	private void initializeCols() {
 		cols = new ArrayList<ObjectGenerator>();
 		String schema = Application.getApp().getCreateStmnt();
@@ -26,12 +27,13 @@ public class ObjectListGenerator {
 		for(int i = 0; i < entries.length; i++){
 			if(entries[i].contains("bigint")){
 				cols.add(new BigIntGenerator());
-			}else if(entries[i].contains("int")){
+			}else if(i >= 5 && i <= 10){
+				cols.add(new PhGenerator());
+			}
+			else if(entries[i].contains("int")){
 				cols.add(new IntGenerator());
 			}else if(entries[i].contains("timestamp")){
 				cols.add(new DateGenerator());
-			}else if(i >= 5 && i <= 10){
-				cols.add(new PhoneGenerator());
 			}else if(entries[i].contains("LONGITUDE")){
 				cols.add(new LongitudeGenerator());
 			}else if(entries[i].contains("LATITUDE")){
@@ -43,6 +45,7 @@ public class ObjectListGenerator {
 			}
 		}
 	}
+	
 	
 	public ArrayList<Object> genRow(){
 		ArrayList<Object> row = new ArrayList<Object>();

@@ -9,6 +9,8 @@ public class DateGenerator extends ColumnObject implements ObjectGenerator {
 	private Date startDate;
     private Date endDate;
     private SimpleDateFormat formatter;
+    long startLong;
+    long endLong;
 	public DateGenerator(){
         formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         try{
@@ -18,18 +20,17 @@ public class DateGenerator extends ColumnObject implements ObjectGenerator {
             System.out.println("ERROR: parse error while generating random Epoch time.");
             pe.printStackTrace();
         }
+        startLong = startDate.getTime();
+        endLong = endDate.getTime();
     }
 	@Override
 	public Object gen() {
-		long startLong = startDate.getTime();
-        long endLong = endDate.getTime();
-        
 		return new Date((genDate(startLong, endLong)));
 	}
 	
 	private long genDate(long min, long max){
-        Random random = new Random();
-        return min + (long)(random.nextDouble()*(max - min));
+       
+        return min + (long)(rndm.nextDouble()*(max - min));
     }
 
 }
