@@ -66,6 +66,11 @@ public class SSTwriter {
 				ce.printStackTrace();
 			}
 		}
+		
+		
+	}
+	
+	public void close(){
 		try {
 			writer.close();
 		} catch (IOException e) {

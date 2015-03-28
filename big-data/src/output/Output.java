@@ -17,7 +17,6 @@ public class Output {
 	public static Application app;
 	
 	public static void main(String[] args) throws Exception {
-		File file = new File("log.txt");
 		String type;
 		if(args.length != 1){
 			System.out.println("incorrect usage");
@@ -43,12 +42,10 @@ public class Output {
 		long start = System.currentTimeMillis();
 		run();
 		long end = System.currentTimeMillis();
-		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Total time: " + (end - start)/1000 + " seconds.", true)))) {
-		    out.println("the text");
-		}catch (IOException e) {
-		    //exception handling left as an exercise for the reader
-		}
-		
+		PrintWriter out = new PrintWriter("log.txt");
+		out.println("took " +  (end - start)/1000 + " seconds.");
+		out.close();
+		System.out.println("took " + (end-start)/1000 + " seconds.");
 		System.exit(0);
 	}
 
@@ -65,7 +62,7 @@ public class Output {
 		String type = Application.RUN_TYPE;
 		int iterations = 0;
 		if(type.equals("test")){
-			iterations = 10;
+			iterations = 2;
 		}else if(type.equals("demo")){
 			iterations = 1000;
 		}else if(type.equals("project")){
@@ -79,23 +76,13 @@ public class Output {
 		JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
 		
 		for(int i = 0; i < iterations; i++){
-			Thread t = new Thread(){
-			public void run(){
-					writer.execute();
-				}
-			};
-			t.start();
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			writer.execute();
 			jmxLoader.bulkLoad(path);
-			jmxLoader.close();
+			// check to see if this kills folder too
 			purgeDirectory(Application.PATH_TO_DATA);
 		}
+		writer.close();
+		jmxLoader.close();
 	}
 	
 	

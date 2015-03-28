@@ -23,3 +23,6 @@ n = 2
 i < 2
 339 728 893 bytes
 23s
+
+
+SSTwriter.close()

@@ -45,12 +45,6 @@ public class JmxBulkLoader {
 		
 		long end = System.currentTimeMillis();
 		System.out.println("load took " + (end - start)/1000 + " seconds");
-		try {
-			this.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -61,6 +55,6 @@ public class JmxBulkLoader {
 		for (String arg : args) {
 			np.bulkLoad(arg);
 		}
-		np.close();
+		
 	}
 }
