@@ -29,8 +29,7 @@ public class ObjectListGenerator {
 				cols.add(new BigIntGenerator());
 			}else if(i >= 5 && i <= 10){
 				cols.add(new PhGenerator());
-			}
-			else if(entries[i].contains("int")){
+			}else if(entries[i].contains("int")){
 				cols.add(new IntGenerator());
 			}else if(entries[i].contains("timestamp")){
 				cols.add(new DateGenerator());

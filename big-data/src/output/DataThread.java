@@ -25,7 +25,16 @@ public class DataThread implements Runnable{
 		final String path = file.getAbsolutePath();
 		writer.execute();
 		writer.close();
-		//JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
+		
+		try {
+			JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
+			jmxLoader.bulkLoad(path);
+			jmxLoader.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void printInfo(){

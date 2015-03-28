@@ -13,7 +13,7 @@ import cass.Setup;
 
 public class Output {
 	public static Application app;
-	public static final int NTHREDS = 10;
+	public static final int NTHREDS = 4;
 	
 	public static void main(String[] args) throws Exception {
 		String type;
@@ -25,7 +25,7 @@ public class Output {
 		type = args[0];
 		Application.NUM_ROWS = Integer.parseInt(args[1]);
 		initApp(type);
-		/*
+		
 		Thread tt = new Thread(){
 			public void run(){
 				Setup setup = new Setup(Application.RUN_TYPE);
@@ -39,7 +39,7 @@ public class Output {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		*/
+		
 		long start = System.currentTimeMillis();
 		run();
 		long end = System.currentTimeMillis();
@@ -47,26 +47,6 @@ public class Output {
 		out.println("took " +  (end - start)/1000 + " seconds.");
 		out.close();
 		System.out.println("took " + (end-start)/1000 + " seconds.");
-		
-		File f1 = new File("thread1/test_keyspace/test_table");
-		System.out.println("Thread 1 size: " + f1.length()/1048576.00);
-
-		File f2 = new File("thread2/test_keyspace/test_table");
-		System.out.println("Thread 2 size: " + f2.length()/1048576.00);
-
-		File f3 = new File("thread3/test_keyspace/test_table");
-		System.out.println("Thread 3 size: " + f3.length()/1048576.00);
-
-		File f4 = new File("thread4/test_keyspace/test_table");
-		System.out.println("Thread 4 size: " + f4.length()/1048576.00);
-
-		System.out.println("Grand Total :" + (f1.length() + f2.length() + f3.length() + f4.length())/1048576.00);
-		
-		FileUtils.deleteDir("thread1/test_keyspace/test_table");
-		FileUtils.deleteDir("thread2/test_keyspace/test_table");
-		FileUtils.deleteDir("thread3/test_keyspace/test_table");
-		FileUtils.deleteDir("thread4/test_keyspace/test_table");
-		
 		System.exit(0);
 	}
 
@@ -83,13 +63,13 @@ public class Output {
 	
 	public static void run() throws Exception{
 		ExecutorService executor = Executors.newFixedThreadPool(NTHREDS);
-		Runnable worker1 = new DataThread("thread1", "thread1/" + File.separator
+		Runnable worker1 = new DataThread("thread0", "thread0/" + File.separator
 				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker2 = new DataThread("thread2", "thread2/" + File.separator
+		Runnable worker2 = new DataThread("thread1", "thread1/" + File.separator
 				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker3 = new DataThread("thread3", "thread3/" + File.separator
+		Runnable worker3 = new DataThread("thread2", "thread2/" + File.separator
 				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker4 = new DataThread("thread4", "thread4/" + File.separator
+		Runnable worker4 = new DataThread("thread3", "thread3/" + File.separator
 				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
 		executor.execute(worker1);
 		executor.execute(worker2);
@@ -103,32 +83,29 @@ public class Output {
 		
 	}
 	
-	
-	private static void purgeDirectory(String dataFolder) {
-		FileUtils.deleteDir(dataFolder);
-	}
-
-	public static void printStartMsg() {
-		
-	}
-
-	/*
-	 * long size = FileUtils.sizeOfDirectory(new File("C:/Windows/folder"));
-	 * 
-	 * System.out.println("Folder Size: " + size + " bytes");
-	 */
-	public static void printEndMsg(long totalTime) {
-		
-	}
-
-	public static long folderSize(File directory) {
-		long length = 0;
-		for (File file : directory.listFiles()) {
-			if (file.isFile())
-				length += file.length();
-			else
-				length += folderSize(file);
+	public static void deleteThreadOutput() {
+		for(int i = 0; i < NTHREDS; i++){
+			FileUtils.deleteDir("thread" + i + File.separatorChar + Application.TYPE_KEYSPACE + File.separatorChar 
+								+ Application.TYPE_TABLE);
 		}
-		return length;
+	}
+	
+	public static void cleanDirs(){
+		for(int i = 0; i < NTHREDS; i++){
+			FileUtils.deleteDir("thread" + i + File.separatorChar + Application.TYPE_KEYSPACE + File.separatorChar 
+					+ Application.TYPE_TABLE);
+		}
+	}
+	
+	public static void printDirs(){
+		
+	}
+	
+	// prints folder size in MB
+	public static double printFolderSize(String dir, String threadId) {
+		 File f = new File(dir);
+		 double size = f.length()/1048576.00;
+		 System.out.println("Thread: " + threadId + f.length()/1048576.00);
+		 return size;
 	}
 }
