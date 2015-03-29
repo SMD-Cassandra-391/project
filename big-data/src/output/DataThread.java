@@ -36,7 +36,7 @@ public class DataThread implements Runnable{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		/*
 		try {
 			JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
 			jmxLoader.bulkLoad(path);
@@ -45,7 +45,7 @@ public class DataThread implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 	}
 	
 	public void printInfo(){

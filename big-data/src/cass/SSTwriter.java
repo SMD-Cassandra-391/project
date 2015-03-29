@@ -36,7 +36,7 @@ public class SSTwriter {
 	public SSTwriter(int numRows, String folder) {
 		this.gen = new ObjectListGenerator();
 		this.numRows = numRows;
-	
+		System.out.println(folder);
 		// magic
 		Config.setClientMode(true);
 		// Prepare SSTable writer

@@ -21,7 +21,7 @@ public class Application {
 	public static final String TEST_TABLE = "test_table";
 	public static final String TEST_KEYSPACE = "test_keyspace";
 	public static final int NUM_COLS = 470;
-	public static int NUM_ROWS = 1000;
+	public static int NUM_ROWS = 100;
 	public static final String DATA_FOLDER = "data";
 	// used in the COPY file basically describes the rows in the csv file
 	private static String TABLE_DESCR = null;

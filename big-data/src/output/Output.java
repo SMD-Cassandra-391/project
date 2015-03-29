@@ -25,7 +25,7 @@ public class Output {
 		type = args[0];
 		Application.NUM_ROWS = Integer.parseInt(args[1]);
 		initApp(type);
-		
+		/*
 		Thread tt = new Thread(){
 			public void run(){
 				Setup setup = new Setup(Application.RUN_TYPE);
@@ -39,7 +39,7 @@ public class Output {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		*/
 		long start = System.currentTimeMillis();
 		run();
 		long end = System.currentTimeMillis();
