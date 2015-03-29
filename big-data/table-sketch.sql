@@ -2,6 +2,7 @@
  *  A sample table struecture for storing the CDR
  *
  */
+create keyspace project;
 
 create table t1(
 num int,
@@ -23,7 +24,7 @@ origVideoCap_Bandwidth INT,
 origVideoCap_Resolution DECIMAL,
 origVideoTransportAddress_IP INT,
 PRIMARY KEY (num, dateTimeOrigination)
-)
+);
 
 create table t2(
 num INT,
@@ -76,7 +77,7 @@ destDeviceName STRING,
 origCallTerminationOnBehalfOf INT,
 destCallTerminationOnBehalfOf INT,
 origCalledPartyRedirectOnBehalfOf INT,
-)
+);
 
 create table t4(
 num INT,
@@ -103,7 +104,7 @@ outpulsedCalledPartyNumber STRING,
 origIpv4v6Addr STRING,
 destIpv4v6Addr STRING,
 PRIMARY KEY (num, dateTimeOrigination)
-)
+);
 
 
 
@@ -155,4 +156,4 @@ lastRedirectingRoutingReason INT,
 huntPilotDN STRING,
 huntPilotPartition STRING
 PRIMARY KEY (num, dateTimeOrigination)
-)
+);

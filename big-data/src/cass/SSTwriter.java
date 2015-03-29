@@ -22,6 +22,7 @@ public class SSTwriter {
 	public static final String SCHEMA = "CREATE TABLE "
 			+ Application.TYPE_KEYSPACE + "." + Application.TYPE_TABLE + " (" 
 			+ Application.getApp().getCreateStmnt() + ");";
+	
 
 	/**
 	 * INSERT statement to bulk load. It is like prepared statement. You fill in

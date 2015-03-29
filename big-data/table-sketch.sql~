@@ -25,19 +25,13 @@ origVideoTransportAddress_IP INT,
 PRIMARY KEY (num, dateTimeOrigination)
 )
 
-
-
-
-
-create table CDR(
+create table t2(
 num INT,
 dateTimeOrigination INT,
 cdrRecordType DECIMAL,
 globalCallID_callManagerId INT,
 globalCallID_callId INT,
 origLegCallIdentifier INT,
-
-
 origVideoTransportAddress_Port INT,
 origRSVPAudioStat DECIMAL,
 origRSVPVideoStat DECIMAL,
@@ -55,6 +49,12 @@ destMediaTransportAddress_IP INT,
 destMediaTransportAddress_Port INT,
 destMediaCap_payloadCapability INT,
 destMediaCap_maxFramesPerPacket INT,
+PRIMARY KEY (num, dateTimeOrigination)
+)
+
+create table t3(
+num INT,
+dateTimeOrigination INT,
 destVideoCap_Codec DECIMAL,
 destVideoCap_Bandwidth INT,
 destVideoCap_Resolution DECIMAL,
@@ -76,6 +76,42 @@ destDeviceName STRING,
 origCallTerminationOnBehalfOf INT,
 destCallTerminationOnBehalfOf INT,
 origCalledPartyRedirectOnBehalfOf INT,
+)
+
+create table t4(
+num INT,
+dateTimeOrigination INT,
+lastRedirectRedirectOnBehalfOf INT,
+origCalledPartyRedirectReason INT,
+lastRedirectRedirectReason INT,
+destConversationID INT,
+globalCallId_ClusterId STRING,
+joinOnBehalfOf  INT,
+comment STRING,
+authCodeDescription STRING,
+authorizationLevel INT,
+clientMatterCode STRING,
+origDTMFMethod INT,
+destDTMFMethod INT,
+callSecuredStatus INT,
+origConversationID INT,
+origMediaCap_Bandwidth INT,
+destMediaCap_Bandwidth INT,
+authorizationCodeValue STRING,
+outpulsedCallingPartyNumber STRING,
+outpulsedCalledPartyNumber STRING,
+origIpv4v6Addr STRING,
+destIpv4v6Addr STRING,
+PRIMARY KEY (num, dateTimeOrigination)
+)
+
+
+
+
+
+create table CDR(
+num INT,
+dateTimeOrigination INT,
 lastRedirectRedirectOnBehalfOf INT,
 origCalledPartyRedirectReason INT,
 lastRedirectRedirectReason INT,

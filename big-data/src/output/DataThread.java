@@ -23,8 +23,19 @@ public class DataThread implements Runnable{
 		
 		File file = new File(folder);
 		final String path = file.getAbsolutePath();
-		writer.execute();
-		writer.close();
+		Thread t1 = new Thread(){
+			public void run(){
+				writer.execute();
+				writer.close();
+			}
+		};
+		t1.start();
+		try {
+			t1.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
