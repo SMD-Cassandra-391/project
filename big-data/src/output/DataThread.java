@@ -11,15 +11,15 @@ import cass.SSTwriter;
 
 
 public class DataThread implements Runnable{
-	private String threadName;
+	private int threadId;
 	private String folder;
-	public DataThread(String threadName, String folder){
-		this.threadName = threadName;
+	public DataThread(int threadId, String folder){
+		this.threadId = threadId;
 		this.folder = folder;
 	}
 	
 	public void run(){
-		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS, folder); 
+		final SSTwriter writer = new SSTwriter(Application.NUM_ROWS, this.folder, this.threadId); 
 		
 		File file = new File(folder);
 		final String path = file.getAbsolutePath();
@@ -37,28 +37,10 @@ public class DataThread implements Runnable{
 			e1.printStackTrace();
 		}
 		
-		try {
-			JmxBulkLoader jmxLoader = new JmxBulkLoader("localhost", 7199);
-			jmxLoader.bulkLoad(path);
-			jmxLoader.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	
 	public void printInfo(){
 		
-	}
-	
-
-	
-	public String getThreadName() {
-		return threadName;
-	}
-
-	public void setThreadName(String threadName) {
-		this.threadName = threadName;
 	}
 }

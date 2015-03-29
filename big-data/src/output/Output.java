@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import cass.Application;
-import cass.Setup;
+
 
 
 
@@ -26,19 +26,7 @@ public class Output {
 		Application.NUM_ROWS = Integer.parseInt(args[1]);
 		initApp(type);
 		
-		Thread tt = new Thread(){
-			public void run(){
-				Setup setup = new Setup(Application.RUN_TYPE);
-				setup.execute();
-			}
-		};
-		tt.start();
-		try {
-			tt.join();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		
 		long start = System.currentTimeMillis();
 		run();
@@ -54,28 +42,21 @@ public class Output {
 	
 	public static void initApp(String type){
 		app = Application.getApp();
-		app.setTableDesc();
-		app.setCreateStmnt();
-		app.buildQuestionString();
-		app.setType(type);
 		app.createOutputDirs();
 	}
 	
 	public static void run() throws Exception{
 		ExecutorService executor = Executors.newFixedThreadPool(NTHREDS);
-		Runnable worker1 = new DataThread("thread0", "thread0/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker2 = new DataThread("thread1", "thread1/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker3 = new DataThread("thread2", "thread2/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker4 = new DataThread("thread3", "thread3/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
+		Runnable worker1 = new DataThread(1, Application.PROJ_TABLE_ONE_PATH);
+		
+		Runnable worker2 = new DataThread(2, Application.PROJ_TABLE_TWO_PATH);
+		
+		Runnable worker3 = new DataThread(3, Application.PROJ_TABLE_THREE_PATH);
+		Runnable worker4 = new DataThread(4, Application.PROJ_TABLE_FOUR_PATH);
 		executor.execute(worker1);
 		executor.execute(worker2);
 		executor.execute(worker3);
 		executor.execute(worker4);
-		    
 		executor.shutdown();
 	    // Wait until all threads are finish
 	    executor.awaitTermination(1000, TimeUnit.SECONDS);

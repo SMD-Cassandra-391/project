@@ -64,15 +64,12 @@ public class BulkLoader {
 		}
 	}
 
-	public void execute() {
-
-		final File currentDir = new File(".", Application.DATA_FOLDER + File.separator + 
-										Application.DEMO_KEYSPACE + File.separator + 
-										Application.DEMO_TABLE);
+	public void execute(String path) {
 		long start = System.currentTimeMillis();
+		final File pathToTable = new File(path);
 		Thread t = new Thread(){
 			public void run(){
-				bulkLoad(currentDir.getAbsolutePath());
+				bulkLoad(pathToTable.getAbsolutePath());
 			}
 		};
 		t.start();
@@ -84,7 +81,7 @@ public class BulkLoader {
 		}
 		long end = System.currentTimeMillis();
 		System.out.println("load took " + (end - start)/1000 + " seconds.");
-		purgeDirectory(currentDir);
+		purgeDirectory(pathToTable);
 		try {
 			close();
 		} catch (IOException e) {

@@ -14,4 +14,4 @@ public class ColumnObject {
         
         return min +((long)(rndm.nextDouble()*(max-min)));
     }
-}
+ }
