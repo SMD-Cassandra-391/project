@@ -101,11 +101,5 @@ public class Output {
 		
 	}
 	
-	// prints folder size in MB
-	public static double printFolderSize(String dir, String threadId) {
-		 File f = new File(dir);
-		 double size = f.length()/1048576.00;
-		 System.out.println("Thread: " + threadId + f.length()/1048576.00);
-		 return size;
-	}
+
 }
