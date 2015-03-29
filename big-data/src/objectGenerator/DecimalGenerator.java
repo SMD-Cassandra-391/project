@@ -4,7 +4,7 @@ public class DecimalGenerator extends ColumnObject implements ObjectGenerator {
 
 	@Override
 	public Object gen() {
-		return new Double(randomInt(1,100)/100.0);
+		return new Float(randomLong(1,100)/100.0);
 	}
 
 }

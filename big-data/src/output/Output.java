@@ -49,10 +49,10 @@ public class Output {
 		ExecutorService executor = Executors.newFixedThreadPool(NTHREDS);
 		Runnable worker1 = new DataThread(1, Application.PROJ_TABLE_ONE_PATH);
 		
-		Runnable worker2 = new DataThread(2, Application.PROJ_TABLE_TWO_PATH);
+		Runnable worker2 = new DataThread(1, Application.PROJ_TABLE_TWO_PATH);
 		
-		Runnable worker3 = new DataThread(3, Application.PROJ_TABLE_THREE_PATH);
-		Runnable worker4 = new DataThread(4, Application.PROJ_TABLE_FOUR_PATH);
+		Runnable worker3 = new DataThread(1, Application.PROJ_TABLE_THREE_PATH);
+		Runnable worker4 = new DataThread(1, Application.PROJ_TABLE_FOUR_PATH);
 		executor.execute(worker1);
 		executor.execute(worker2);
 		executor.execute(worker3);
