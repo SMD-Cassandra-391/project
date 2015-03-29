@@ -25,16 +25,16 @@ public class ObjectListGenerator {
 	private void initializeCols() {
 		cols = null;
 		switch(threadId){
-			case 1:
+			case 0:
 				cols = getThreadOneGen();
 				break;
-			case 2:
+			case 1:
 				cols = getThreadTwoGen();
 				break;
-			case 3:
+			case 2:
 				cols = getThreadThreeGen();
 				break;
-			case 4:
+			case 3:
 				cols = getThreadFourGen();
 				break;
 		}

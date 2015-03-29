@@ -8,11 +8,12 @@ import org.apache.cassandra.exceptions.InvalidRequestException;
 import org.apache.cassandra.io.sstable.CQLSSTableWriter;
 
 public class SSTwriter {
-	public final static String KEYSPACE = "project";
+	public final static String KEYSPACE = "practice";
 	public final static String TABLE1 = "t1";
 	private ObjectListGenerator gen;
 	private int numRows;
 	private CQLSSTableWriter writer;
+	private int id;
 	public static  final String SCHEMA1 = 
 			"CREATE TABLE " + KEYSPACE + "." + TABLE1 + " ( " 
 			+ "num bigint, "
@@ -41,7 +42,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY(num, dateTimeOrigination))";
 	
 	public static final String SCHEMA2 = 
-			"CREATE TABLE project.t2 ( "
+			"CREATE TABLE practice.t2 ( "
 			+ "num bigint, "
 			+ "dateTimeOrigination int, "
 			+ "cdrRecordType float, "
@@ -68,7 +69,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY (num, dateTimeOrigination))";
 	
 	public static final String SCHEMA3 = 
-			"CREATE TABLE project.t3 ( "
+			"CREATE TABLE practice.t3 ( "
 			+ "num bigint, "
 			+ "dateTimeOrigination int, "
 			+ "destVideoCap_Codec float, "
@@ -108,7 +109,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY (num, dateTimeOrigination))";
 	
 	public static final String SCHEMA4 =
-			"CREATE TABLE project.t4 ( "
+			"CREATE TABLE practice.t4 ( "
 			+ "num bigint, "
 			+ "dateTimeOrigination int, "
 			+ "lastRedirectRedirectOnBehalfOf int, "
@@ -141,7 +142,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY (num, dateTimeOrigination))";
 	
 	public static  String INSERT1 =
-		  "INSERT INTO project.t1 ("
+		  "INSERT INTO practice.t1 ("
 		+ "num, "
 		+ "dateTimeOrigination, "
 		+ "origNodeId, "
@@ -173,7 +174,7 @@ public class SSTwriter {
 		+ "?, ?, ?)";
 	
 	public static  String INSERT2 = 
-		  "INSERT INTO project.t2 ("
+		  "INSERT INTO practice.t2 ("
 	    + "num, "
 		+ "dateTimeOrigination, "
 		+ "cdrRecordType, "
@@ -205,7 +206,7 @@ public class SSTwriter {
 		+ "?, ?, ? )";
 	
 	public static String INSERT3 =
-			  "INSERT INTO project.t3 ("
+			  "INSERT INTO practice.t3 ("
 			+ "num, "
 			+ "dateTimeOrigination, "
 			+ "destVideoCap_Codec, "
@@ -252,7 +253,7 @@ public class SSTwriter {
 			+ "?, ?, ?, ?, ?, ?)";
 	
 	public static final String INSERT4 =
-			"INSERT INTO project.t4 ("
+			"INSERT INTO practice.t4 ("
 		  + "num,  "
 		  + "dateTimeOrigination,  "
 		  + "lastRedirectRedirectOnBehalfOf,  "
@@ -300,25 +301,22 @@ public class SSTwriter {
 		this.numRows = numRows;
 		gen = new ObjectListGenerator(threadId);
 		String schemaToUse = null;
-	
+		this.id = threadId;
 		String insertToUse = null;
-		
-		
-		
 		switch(threadId){
-			case 1:
+			case 0:
 				schemaToUse = SCHEMA1;
 				insertToUse = INSERT1;
 				break;
-			case 2:
+			case 1:
 				schemaToUse = SCHEMA2;
 				insertToUse = INSERT2;
 				break;
-			case 3:
+			case 2:
 				schemaToUse = SCHEMA3;
 				insertToUse = INSERT3;
 				break;
-			case 4:
+			case 3:
 				schemaToUse = SCHEMA4;
 				insertToUse = INSERT4;
 				break;
@@ -326,13 +324,10 @@ public class SSTwriter {
 				System.out.println("unkown schema type");
 	
 		}
-		System.out.println("thread id = " + threadId);
-		System.out.println(insertToUse);
-		System.out.println(schemaToUse);
-		System.out.println(folder);
-		
+		CQLSSTableWriter.Builder builder = null;
+		try{
 		// Prepare SSTable writer
-		CQLSSTableWriter.Builder builder = CQLSSTableWriter.builder();
+		builder = CQLSSTableWriter.builder();
 		// set output directory
 		builder.inDirectory(folder)
 		// set target schema
@@ -344,12 +339,16 @@ public class SSTwriter {
 				// default is Murmur3Partitioner so set if you use different
 				// one.
 				.withPartitioner(new Murmur3Partitioner());
+		}catch(Exception e){
+			System.out.println(threadId);
+			System.out.println(folder);
+		}
 		writer = builder.build();
 
 	}
 
 	public void execute() {
-		System.out.println("creating " + this.numRows + " rows");
+		System.out.println("creating " + this.numRows + " rows for " + this.id);
 		for (int i = 0; i < this.numRows; i++) {
 			try {
 				writer.addRow(gen.genRow());
