@@ -16,9 +16,9 @@ public class Application {
 	public static final String PROJ = "project";
 	public static int NUM_ROWS = 10;
 	public static final String PROJ_TABLE_ONE_PATH = "thread0" + File.separatorChar + "project" + File.separatorChar + "t1";
-	public static final String PROJ_TABLE_TWO_PATH = "thread1" + File.separatorChar + "project/t2";
-	public static final String PROJ_TABLE_THREE_PATH = "thread2" + File.separatorChar + "project/t3";
-	public static final String PROJ_TABLE_FOUR_PATH = "thread3" + File.separatorChar + "project/t4";
+	public static final String PROJ_TABLE_TWO_PATH = "thread1" + File.separatorChar + "project" + File.separatorChar+ "t2";
+	public static final String PROJ_TABLE_THREE_PATH = "thread2" + File.separatorChar + "project" + File.separatorChar + "t3";
+	public static final String PROJ_TABLE_FOUR_PATH = "thread3" + File.separatorChar + "project" + File.separatorChar + "t4";
 	public static String RUN_TYPE = null;
 	public static String TYPE_KEYSPACE = null;
 	public static String TYPE_TABLE = null;
