@@ -50,13 +50,10 @@ public class BulkLoader {
 	}
 
 	public void bulkLoad(String path) {
-
 		storageBean.bulkLoad(path);
-
 	}
 
 	public void purgeDirectory(File dir) {
-
 		for (File file : dir.listFiles()) {
 			if (file.isDirectory())
 				purgeDirectory(file);

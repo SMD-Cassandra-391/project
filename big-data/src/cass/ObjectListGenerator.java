@@ -74,16 +74,12 @@ public class ObjectListGenerator {
 		gens.add(new BigIntGenerator());
 		gens.add(new IntGenerator());
 		gens.add(new DecimalGenerator());
-		
 		for(int i = 0; i < 4; i++)
 			gens.add(new IntGenerator());
-		
 		gens.add(new DecimalGenerator());
 		gens.add(new DecimalGenerator());
-		
 		for(int i = 0; i < 4; i++)
 			gens.add(new IntGenerator());
-		
 		gens.add(new PhGenerator());
 		gens.add(new PhGenerator());
 		gens.add(new CharGenerator());
@@ -135,19 +131,7 @@ public class ObjectListGenerator {
 		gens.add(new CharGenerator());
 		return gens;
 	}
-	/*
-	 * + 
-			
-			
-			
-			+ "origVideoCap_Codec_Channel2 decimal, "
-			+ "origVideoCap_Bandwidth_Channel2 int, "
-			+ "origVideoCap_Resolution_Channel2 decimal, "
-			+ "origVideoTransportAddress_IP_Channel2 int, "
-			+ "origVideoTransportAddress_Port_Channel2 int, "
-			+ "origVideoChannel_Role_Channel2 int, "
-	 */
-
+	
 	public ArrayList<ObjectGenerator> getThreadFourGen() {
 		ArrayList<ObjectGenerator> gens = new ArrayList<ObjectGenerator>();
 		gens.add(new BigIntGenerator());

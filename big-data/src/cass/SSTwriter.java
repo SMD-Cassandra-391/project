@@ -8,7 +8,7 @@ import org.apache.cassandra.exceptions.InvalidRequestException;
 import org.apache.cassandra.io.sstable.CQLSSTableWriter;
 
 public class SSTwriter {
-	public final static String KEYSPACE = "practice";
+	public final static String KEYSPACE = "project";
 	public final static String TABLE1 = "t1";
 	private ObjectListGenerator gen;
 	private int numRows;
@@ -42,7 +42,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY(num, dateTimeOrigination))";
 	
 	public static final String SCHEMA2 = 
-			"CREATE TABLE practice.t2 ( "
+			"CREATE TABLE project.t2 ( "
 			+ "num bigint, "
 			+ "dateTimeOrigination int, "
 			+ "cdrRecordType float, "
@@ -69,7 +69,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY (num, dateTimeOrigination))";
 	
 	public static final String SCHEMA3 = 
-			"CREATE TABLE practice.t3 ( "
+			"CREATE TABLE project.t3 ( "
 			+ "num bigint, "
 			+ "dateTimeOrigination int, "
 			+ "destVideoCap_Codec float, "
@@ -109,7 +109,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY (num, dateTimeOrigination))";
 	
 	public static final String SCHEMA4 =
-			"CREATE TABLE practice.t4 ( "
+			"CREATE TABLE project.t4 ( "
 			+ "num bigint, "
 			+ "dateTimeOrigination int, "
 			+ "lastRedirectRedirectOnBehalfOf int, "
@@ -142,7 +142,7 @@ public class SSTwriter {
 			+ "PRIMARY KEY (num, dateTimeOrigination))";
 	
 	public static  String INSERT1 =
-		  "INSERT INTO practice.t1 ("
+		  "INSERT INTO project.t1 ("
 		+ "num, "
 		+ "dateTimeOrigination, "
 		+ "origNodeId, "
@@ -174,7 +174,7 @@ public class SSTwriter {
 		+ "?, ?, ?)";
 	
 	public static  String INSERT2 = 
-		  "INSERT INTO practice.t2 ("
+		  "INSERT INTO project.t2 ("
 	    + "num, "
 		+ "dateTimeOrigination, "
 		+ "cdrRecordType, "
@@ -206,7 +206,7 @@ public class SSTwriter {
 		+ "?, ?, ? )";
 	
 	public static String INSERT3 =
-			  "INSERT INTO practice.t3 ("
+			  "INSERT INTO project.t3 ("
 			+ "num, "
 			+ "dateTimeOrigination, "
 			+ "destVideoCap_Codec, "
@@ -253,7 +253,7 @@ public class SSTwriter {
 			+ "?, ?, ?, ?, ?, ?)";
 	
 	public static final String INSERT4 =
-			"INSERT INTO practice.t4 ("
+			"INSERT INTO project.t4 ("
 		  + "num,  "
 		  + "dateTimeOrigination,  "
 		  + "lastRedirectRedirectOnBehalfOf,  "
@@ -291,15 +291,18 @@ public class SSTwriter {
 		  + "?, ?, ?, ?, ?, "
 		  + "?, ?, ?, ?)";
 	
-	
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
 	public SSTwriter(int numRows, String folder, int threadId) {
+		System.out.println("threadId =" + threadId);
+		System.out.println("folder = " + folder);
+		System.out.println("=====================");
 		// magic
 		Config.setClientMode(true);
 		this.gen = null;
 		this.numRows = numRows;
 		gen = new ObjectListGenerator(threadId);
+		if(gen == null){
+			System.out.println("gen is null");
+		}
 		String schemaToUse = null;
 		this.id = threadId;
 		String insertToUse = null;
@@ -331,7 +334,6 @@ public class SSTwriter {
 		// set output directory
 		builder.inDirectory(folder)
 		// set target schema
-				
 				.forTable(schemaToUse)
 				// set CQL statement to put data
 				.using(insertToUse)
@@ -352,17 +354,14 @@ public class SSTwriter {
 		for (int i = 0; i < this.numRows; i++) {
 			try {
 				writer.addRow(gen.genRow());
-			} catch (InvalidRequestException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassCastException ce){
-				System.out.println(i);
-				ce.printStackTrace();
-				System.exit(-1);
-			}
+			} catch (InvalidRequestException | IOException | NullPointerException e) {
+				if(gen == null){
+					System.out.println("generator is null");
+				}
+				return;
+				
+			} 
 		}
-		
-		
 	}
 	
 	public void close(){
@@ -372,7 +371,6 @@ public class SSTwriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("writer is closed");
 	}
 
 

@@ -3,8 +3,6 @@ package objectGenerator;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
-
 public class DateGenerator extends ColumnObject implements ObjectGenerator {
 	private Date startDate;
     private Date endDate;

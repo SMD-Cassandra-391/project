@@ -1,7 +1,6 @@
 package objectGenerator;
 
 public class IntGenerator extends ColumnObject implements ObjectGenerator {
-
 	@Override
 	public Object gen() {
 		// TODO Auto-generated method stub
