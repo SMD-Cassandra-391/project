@@ -6,5 +6,9 @@ public class IntGenerator extends ColumnObject implements ObjectGenerator {
 		// TODO Auto-generated method stub
 		return new Integer(randomInt(1, 1000));
 	}
+	
+	public IntGenerator(int seed){
+		super(seed);
+	}
 
 }

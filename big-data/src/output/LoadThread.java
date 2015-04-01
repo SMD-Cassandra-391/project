@@ -2,15 +2,25 @@ package output;
 
 import java.io.File;
 import loader.JmxBulkLoader;
-import cass.SSTwriter;
+
+
+/**
+ * instantiates a JmxBulkLoader to load SSTables to Cassandra cluster
+ * @author slmyers
+ */
 
 public class LoadThread implements Runnable {
-	private String folder;
-	SSTwriter writer; 
+	/**
+	 * folder containing SSTables to load
+	 */
+	private String folder; 
 	public LoadThread(String folder){
-		
 		this.folder = folder;
 	}
+	
+	/**
+	 * JmxBulkLoader requires the absolute path to the file containing the SSTables
+	 */
 	@Override
 	public void run() {
 		File f = new File(this.folder);

@@ -1,30 +1,31 @@
 package cass;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import objectGenerator.BigIntGenerator;
 import objectGenerator.CharGenerator;
-
+import objectGenerator.DateGenerator;
 import objectGenerator.DecimalGenerator;
 import objectGenerator.IPGenerator;
 import objectGenerator.IntGenerator;
 import objectGenerator.ObjectGenerator;
-import objectGenerator.PhGenerator;
-
-
 
 public class ObjectListGenerator {
 	private ArrayList<ObjectGenerator> cols;
-	private int threadId;
+	private int tableId;
+	private Random random;
 
-	public ObjectListGenerator(int threadId) {
-		this.threadId = threadId;
+	public ObjectListGenerator(int tableId, int seed) {
+		this.tableId = tableId;
+		this.random = new Random(seed);
 		this.initializeCols();
+		
 	}
 	
 	private void initializeCols() {
 		cols = null;
-		switch(threadId){
+		switch(tableId){
 			case 0:
 				cols = getThreadOneGen();
 				break;
@@ -34,130 +35,103 @@ public class ObjectListGenerator {
 			case 2:
 				cols = getThreadThreeGen();
 				break;
-			case 3:
-				cols = getThreadFourGen();
-				break;
 		}
 	}
 	
 	public ArrayList<ObjectGenerator> getThreadOneGen() {
 		ArrayList<ObjectGenerator> gens = new ArrayList<ObjectGenerator>();
-		gens.add(new BigIntGenerator());
-		for(int i = 0; i < 4; i++){
-			gens.add(new IntGenerator());
-		}
-		gens.add(new PhGenerator());
-		gens.add(new PhGenerator());
-		
-		for(int i = 0; i < 3; i++)
-			gens.add(new DecimalGenerator());
-		
-		for(int i = 0; i < 4; i++)
-			gens.add(new IntGenerator());
-		
-		gens.add(new DecimalGenerator());
-		
-		gens.add(new IntGenerator());
-		gens.add(new DecimalGenerator());
-		
-		for(int i = 0; i < 4; i++)
-			gens.add(new IntGenerator());
-		
-		gens.add(new IPGenerator());
-		gens.add(new IPGenerator());
+		gens.add(new BigIntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IPGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IPGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IPGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
 		return gens;
 	}
-	
 	
 	public ArrayList<ObjectGenerator> getThreadTwoGen() {
 		ArrayList<ObjectGenerator> gens = new ArrayList<ObjectGenerator>();
-		gens.add(new BigIntGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new DecimalGenerator());
-		for(int i = 0; i < 4; i++)
-			gens.add(new IntGenerator());
-		gens.add(new DecimalGenerator());
-		gens.add(new DecimalGenerator());
-		for(int i = 0; i < 4; i++)
-			gens.add(new IntGenerator());
-		gens.add(new PhGenerator());
-		gens.add(new PhGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new DecimalGenerator());
-		gens.add(new DecimalGenerator());
-		gens.add(new DecimalGenerator());
-		for(int i = 0; i < 4; i++)
-			gens.add(new IntGenerator());
+		gens.add(new BigIntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IPGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IPGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
 		return gens;
 	}
-	
-	
 	
 	public ArrayList<ObjectGenerator> getThreadThreeGen() {
 		ArrayList<ObjectGenerator> gens = new ArrayList<ObjectGenerator>();
-		gens.add(new BigIntGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new DecimalGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new DecimalGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new DecimalGenerator());
-		gens.add(new DecimalGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new PhGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new PhGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new CharGenerator());
-		for(int i = 0 ; i < 3; i++){
-			gens.add(new IntGenerator());
-		}
-		gens.add(new PhGenerator());
-		gens.add(new CharGenerator());
-		for(int i = 0; i < 3; i++){
-			gens.add(new DecimalGenerator());
-		}
-		for(int i = 0; i< 5; i++){
-			gens.add(new IntGenerator());
-		}
-		gens.add(new CharGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new CharGenerator());
+		gens.add(new BigIntGenerator(random.nextInt()));
+		gens.add(new DateGenerator(random.nextInt()));
+		gens.add(new DateGenerator(random.nextInt()));
+		gens.add(new DateGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new DecimalGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IPGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new IntGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
+		gens.add(new CharGenerator(random.nextInt()));
 		return gens;
 	}
 	
-	public ArrayList<ObjectGenerator> getThreadFourGen() {
-		ArrayList<ObjectGenerator> gens = new ArrayList<ObjectGenerator>();
-		gens.add(new BigIntGenerator());
-		for(int i = 0; i< 5; i++)
-			gens.add(new IntGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new CharGenerator());
-		for(int i = 0; i< 6; i++)
-			gens.add(new IntGenerator());
-		gens.add(new CharGenerator());
-		gens.add(new PhGenerator());
-		gens.add(new PhGenerator());
-		gens.add(new IPGenerator());
-		gens.add(new IPGenerator());
-		
-		gens.add(new DecimalGenerator());
-		gens.add(new IntGenerator());
-		gens.add(new DecimalGenerator());
-		for(int i = 0; i< 3; i++)
-			gens.add(new IntGenerator());
-		return gens;
-	}
+	
 
 	public ArrayList<Object> genRow(){
 		ArrayList<Object> row = new ArrayList<Object>();

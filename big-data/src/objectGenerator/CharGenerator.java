@@ -1,5 +1,12 @@
 package objectGenerator;
 
+/**
+ * generates a random lower case character
+ * @author slmyers
+ *
+ */
+
+
 public class CharGenerator extends ColumnObject implements ObjectGenerator {
 
 	@Override
@@ -8,4 +15,7 @@ public class CharGenerator extends ColumnObject implements ObjectGenerator {
 		return Character.toString(c);
 	}
 
+	public CharGenerator(int seed){
+		super(seed);
+	}
 }
