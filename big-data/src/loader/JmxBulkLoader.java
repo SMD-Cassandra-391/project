@@ -41,8 +41,6 @@ public class JmxBulkLoader {
 	public void bulkLoad(String path) {
 		long start = System.currentTimeMillis();
 		storageBean.bulkLoad(path);
-		
-		
 		long end = System.currentTimeMillis();
 		System.out.println("load took " + (end - start)/1000 + " seconds");
 	}

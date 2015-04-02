@@ -1,8 +1,9 @@
 package cass;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+
+import objectGenerator.IntGenerator;
+import objectGenerator.PhGenerator;
 
 import org.apache.cassandra.config.Config;
 import org.apache.cassandra.dht.Murmur3Partitioner;
@@ -10,66 +11,163 @@ import org.apache.cassandra.exceptions.InvalidRequestException;
 import org.apache.cassandra.io.sstable.CQLSSTableWriter;
 
 public class SSTwriter {
+	
 	private ObjectListGenerator gen;
 	private int numRows;
 	private CQLSSTableWriter writer;
-
-	/** Default output directory */
-	public static final String DEFAULT_OUTPUT_DIR = Application.DATA_FOLDER;
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
-			"yyyy-MM-dd");
-
-	public static final String SCHEMA = "CREATE TABLE "
-			+ Application.TYPE_KEYSPACE + "." + Application.TYPE_TABLE + " (" 
-			+ Application.getApp().getCreateStmnt() + ");";
+	private int tableId;
+	private int seed;
 	
+	public SSTwriter(int numRows, String folder, int tableId, int seed) {
 
-	/**
-	 * INSERT statement to bulk load. It is like prepared statement. You fill in
-	 * place holder for each data.
-	 */
-	public static final String INSERT_STMT = String.format("INSERT INTO "
-			+ Application.TYPE_KEYSPACE + "." + Application.TYPE_TABLE 
-			+ Application.getApp().getTableDesc() + " VALUES ("
-			+ Application.getApp().getQuestionString() + ")");
-
-	public SSTwriter(int numRows, String folder) {
-		this.gen = new ObjectListGenerator();
-		this.numRows = numRows;
-		System.out.println(folder);
 		// magic
 		Config.setClientMode(true);
+		this.gen = null;
+		this.numRows = numRows;
+		this.seed = seed;
+		gen = new ObjectListGenerator(tableId, seed);
+		if(gen == null){
+			System.out.println("gen is null");
+		}
+		String schemaToUse = null;
+		String insertToUse = null;
+		this.tableId = tableId;
+		switch(tableId){
+			case 0:
+				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_1_DEMO);
+					insertToUse = new String(Inserts.INSERT_1_DEMO);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_1_PROJ);
+					insertToUse = new String(Inserts.INSERT_1_PROJ);
+				}
+				break;
+			case 1:
+				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_2_DEMO);
+					insertToUse = new String(Inserts.INSERT_2_DEMO);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_2_PROJ);
+					insertToUse = new String(Inserts.INSERT_2_PROJ);
+				}
+				break;
+			case 2:
+				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_3_DEMO);
+					insertToUse = new String(Inserts.INSERT_3_DEMO);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_3_PROJ);
+					insertToUse = new String(Inserts.INSERT_3_PROJ);
+				}
+				break;
+			case 3:
+				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
+					schemaToUse = Schemas.SCHEMA_4_DEMO;
+					insertToUse = Inserts.INSERT_4_DEMO;
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
+					schemaToUse = Schemas.SCHEMA_4_PROJ;
+					insertToUse = Inserts.INSERT_4_PROJ;
+				}
+				break;
+			case 4:
+				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
+					schemaToUse = Schemas.SCHEMA_5_DEMO;
+					insertToUse = Inserts.INSERT_5_DEMO;
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
+					schemaToUse = Schemas.SCHEMA_5_PROJ;
+					insertToUse = Inserts.INSERT_5_PROJ;
+				}
+				break;
+				
+			default:
+				System.out.println("unkown schema type");
+				System.exit(-1);
+	
+		}
+		while(schemaToUse == null);
+		
+		CQLSSTableWriter.Builder builder = null;
+		try{
 		// Prepare SSTable writer
-		CQLSSTableWriter.Builder builder = CQLSSTableWriter.builder();
+		builder = CQLSSTableWriter.builder();
 		// set output directory
 		builder.inDirectory(folder)
 		// set target schema
-				.forTable(SCHEMA)
+				.forTable(schemaToUse)
 				// set CQL statement to put data
-				.using(INSERT_STMT)
+				.using(insertToUse)
 				// set partitioner if needed
 				// default is Murmur3Partitioner so set if you use different
 				// one.
 				.withPartitioner(new Murmur3Partitioner());
+		}catch(Exception e){
+			System.out.println(tableId);
+			System.out.println(folder);
+		}
+		System.out.println(folder);
+		System.out.println(insertToUse);
+		System.out.println(schemaToUse);
 		writer = builder.build();
 
 	}
 
-	public void execute() {
-		System.out.println("creating " + this.numRows + " rows");
+	public void execute() throws InvalidRequestException, IOException {
+		if(this.tableId == 3){
+			this.executeTableFour();
+			return;
+		}
+		else if(this.tableId == 4){
+			this.executeTableFive();
+			return;
+		}
+		System.out.println("creating " + this.numRows + " rows for " + this.tableId);
 		for (int i = 0; i < this.numRows; i++) {
+			writer.addRow(gen.genRow());
+		}
+	}
+	
+	public void executeTableFour() {
+		
+		int count = 1;
+		IntGenerator gen = new IntGenerator(this.seed);
+		while(count <= 6000){
 			try {
-				writer.addRow(gen.genRow());
-			} catch (InvalidRequestException | IOException e) {
+				writer.addRow(new Integer(count), gen.gen());
+			} catch (InvalidRequestException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ClassCastException ce){
-				ce.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			count++;
 		}
-		
-		
 	}
+	
+	public void executeTableFive() {
+		
+		int count = 1;
+		IntGenerator intGen = new IntGenerator(this.seed);
+		PhGenerator phGen = new PhGenerator(this.seed);
+		while(count <= 200000){
+			try {
+				writer.addRow(phGen.gen(), intGen.gen());
+			} catch (InvalidRequestException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			count++;
+		}
+	}
+	
 	
 	public void close(){
 		try {
@@ -78,15 +176,8 @@ public class SSTwriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("writer is closed");
 	}
 
-	public void printSchema() {
-		System.out.println(SSTwriter.SCHEMA);
-	}
 
-	public void printInsertStatement() {
-		System.out.println(SSTwriter.INSERT_STMT);
-	}
 
 }

@@ -1,105 +1,57 @@
 package output;
 
+
 import java.io.File;
-import java.io.PrintWriter;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 import cass.Application;
-import cass.Setup;
 
 
-
+/**
+ * this is the entry point of the application. It will infinitely output newly created tables
+ * and then load them into the Cassandra cluster. 
+ * invocation: sudo nohup java -jar DatabaseGenerator-1.0-SNAPSHOT.one-jar.jar
+ * At this point one should record the pid of this process, because when you want to 
+ * stop generation you're going to go sudo kill <pidof this program>.
+ * http://stackoverflow.com/questions/2724725/best-way-to-daemonize-java-application-on-linux
+ * http://www.cyberciti.biz/tips/nohup-execute-commands-after-you-exit-from-a-shell-prompt.html
+ * @author slmyers
+ *
+ */
 public class Output {
+	/** Application stores information entered at runtime */
 	public static Application app;
+	/** The data creation and data loading is ran in four threads */
 	public static final int NTHREDS = 4;
+	public static File[] files;
 	
 	public static void main(String[] args) throws Exception {
-		String type;
-		if(args.length != 1){
-			System.out.println("incorrect usage");
-			System.out.println("correct usage:");
-			System.out.println("java -jar DatabaseGenerator-1.0-SNAPSHOT.one-jar.jar <type>");
-		}
-		type = args[0];
-		Application.NUM_ROWS = Integer.parseInt(args[1]);
-		initApp(type);
-		/*
-		Thread tt = new Thread(){
-			public void run(){
-				Setup setup = new Setup(Application.RUN_TYPE);
-				setup.execute();
-			}
-		};
-		tt.start();
-		try {
-			tt.join();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		*/
-		long start = System.currentTimeMillis();
-		run();
-		long end = System.currentTimeMillis();
-		PrintWriter out = new PrintWriter("log.txt");
-		out.println("took " +  (end - start)/1000 + " seconds.");
-		out.close();
-		System.out.println("took " + (end-start)/1000 + " seconds.");
-		System.exit(0);
-	}
-
-
-	
-	public static void initApp(String type){
 		app = Application.getApp();
-		app.setTableDesc();
-		app.setCreateStmnt();
-		app.buildQuestionString();
-		app.setType(type);
-		app.createOutputDirs();
-	}
-	
-	public static void run() throws Exception{
-		ExecutorService executor = Executors.newFixedThreadPool(NTHREDS);
-		Runnable worker1 = new DataThread("thread0", "thread0/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker2 = new DataThread("thread1", "thread1/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker3 = new DataThread("thread2", "thread2/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		Runnable worker4 = new DataThread("thread3", "thread3/" + File.separator
-				+ Application.TYPE_KEYSPACE + File.separator + Application.TYPE_TABLE);
-		executor.execute(worker1);
-		executor.execute(worker2);
-		executor.execute(worker3);
-		executor.execute(worker4);
-		    
-		executor.shutdown();
-	    // Wait until all threads are finish
-	    executor.awaitTermination(1000, TimeUnit.SECONDS);
-	    System.out.println("Finished all threads");
-		
-	}
-	
-	public static void deleteThreadOutput() {
-		for(int i = 0; i < NTHREDS; i++){
-			FileUtils.deleteDir("thread" + i + File.separatorChar + Application.TYPE_KEYSPACE + File.separatorChar 
-								+ Application.TYPE_TABLE);
+		if(args[0].equalsIgnoreCase("demo")){
+			Application.RUN_TYPE = Application.DEMO;
 		}
-	}
-	
-	public static void cleanDirs(){
-		for(int i = 0; i < NTHREDS; i++){
-			FileUtils.deleteDir("thread" + i + File.separatorChar + Application.TYPE_KEYSPACE + File.separatorChar 
-					+ Application.TYPE_TABLE);
+
+		else if(args[0].equalsIgnoreCase("project")){
+			Application.RUN_TYPE = Application.PROJ;
 		}
-	}
+		else{
+			System.out.println("keyspace is neither demo nor project. System exiting.");
+			System.exit(-1);
+		}
+		Application.NUM_ROWS = Integer.parseInt(args[1]);
+		Stream stream = new Stream();
+		// duration ranges from 0 to 6000s in model
+		stream.createT4(6000);
+		// two hundred thousand phone numbers in model
+		stream.createT5(200000);
+		stream.runStream();
+
+		System.exit(0);
+}
+
 	
-	public static void printDirs(){
-		
-	}
+
+	
+	
+	
 	
 
 }

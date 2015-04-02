@@ -2,148 +2,133 @@ package cass;
 
 import java.io.File;
 
-import output.FileUtils;
-import output.Output;
-
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.Session;
 
 public class Application {
-	private static Session session;
-	private static Cluster cluster;
+	
 	private static Application app = null;
-	public static final String DEMO = "DEMO";
-	public static final String PROJ = "PROJ";
-	public static final String DEMO_KEYSPACE = "demo_keyspace";
-	public static final String DEMO_TABLE = "demo_table";
-	public static final String PROJ_KEYSPACE = "proj_keyspace";
-	public static final String PROJ_TABLE = "proj_table";
-	public static final String TEST_TABLE = "test_table";
-	public static final String TEST_KEYSPACE = "test_keyspace";
-	public static final int NUM_COLS = 470;
-	public static int NUM_ROWS = 100;
-	public static final String DATA_FOLDER = "data";
-	// used in the COPY file basically describes the rows in the csv file
-	private static String TABLE_DESCR = null;
-	private static String CREATE_STATMENT = null;
-	private static String QUESTION_STRING = null;
-	public static final String PATH_TO_DATA = DATA_FOLDER  + File.separatorChar +  TEST_KEYSPACE 
-											  + File.separatorChar + TEST_TABLE;
-	public static File OUTPUT_DIR = null;
+
+	public static final String DEMO = "demo";
+	public static final String PROJ = "project";
+	public static int NUM_ROWS = 10000;
+	public static final String PROJ_THREAD_ONE_PATH = "data/" + "thread0" + File.separator + "project" + File.separator;
+	public static final String PROJ_THREAD_TWO_PATH =  "data/" +"thread1" + File.separator + "project" + File.separator;
+	public static final String PROJ_THREAD_THREE_PATH =  "data/" +"thread2" + File.separator + "project" + File.separator;
+	public static final String PROJ_THREAD_FOUR_PATH =  "data/" +"thread3" + File.separator + "project" + File.separator;
+	
+	public static final String DEMO_THREAD_ONE_PATH = "data/" + "thread0" + File.separator + "demo" + File.separator;
+	public static final String DEMO_THREAD_TWO_PATH =  "data/" +"thread1" + File.separator + "demo" + File.separator;
+	public static final String DEMO_THREAD_THREE_PATH =  "data/" +"thread2" + File.separator + "demo" + File.separator;
+	public static final String DEMO_THREAD_FOUR_PATH =  "data/" +"thread3" + File.separator + "demo" + File.separator;
+	
+	public static String THREAD_ONE_PATH = null;
+	public static String THREAD_TWO_PATH = null;
+	public static String THREAD_THREE_PATH = null;
+	public static String THREAD_FOUR_PATH = null;
 	public static String RUN_TYPE = null;
-	public static String TYPE_KEYSPACE = null;
-	public static String TYPE_TABLE = null;
+	
 	protected Application(){
 		// empty constructor
 	}
-	
+	/**
+	 * singleton pattern
+	 */
 	public static Application getApp(){
 		if(app == null){
 			app = new Application();
 		}
 		return app;
 	}
-	
-	public void buildCluster(){
-		cluster = Cluster.builder()
-				  .addContactPoint("localhost")
-				  .build();
-		cluster.connect();
-	}
-	
-	public void connectSession(){
-		session = cluster.connect();
-	}
-	
-	public Cluster getCluster(){
-		return cluster;
-	}
-	
-	public Session getSession(){
-		return session;
-	}
-	
-	public void closeCluster(){
-		cluster.close();
-	}
-	
-	public String getTableDesc(){
-		return TABLE_DESCR;
-	}
-	
-	public void setTableDesc(){
-		TABLE_DESCR = FileUtils.getTableDesc();
-	}
-
-
-	public void setCreateStmnt() {
-		CREATE_STATMENT = FileUtils.getCreateStmnt();
-		
-	}
-
-	public String getCreateStmnt() {
-		return CREATE_STATMENT;
-	}
-	
-	public void buildQuestionString(){
-		// 470 ?
-		// 469 ,
-		// 469 " "
-		// means 1408 chars going to 1420 for extra safety
-		StringBuilder sb = new StringBuilder(1420);
-		for(int i = 0; i < Application.NUM_COLS - 1; i++){
-			sb.append("?");
-			sb.append(",");
-			sb.append(" ");
-		}
-		sb.append("?");
-		QUESTION_STRING = new String(sb.toString());
-	}
-	
-	public String getQuestionString(){
-		return QUESTION_STRING;
-	}
-	
-	public void setType(String type){
-		RUN_TYPE = new String(type);
-		if(type.equals("test")){
-			TYPE_KEYSPACE = TEST_KEYSPACE;
-			TYPE_TABLE = TEST_TABLE;
-		}else if(type.equals("demo")){
-			TYPE_KEYSPACE = DEMO_KEYSPACE;
-			TYPE_TABLE = DEMO_TABLE;
-		}else if(type.equals("project")){
-			TYPE_KEYSPACE = PROJ_KEYSPACE;
-			TYPE_TABLE = PROJ_TABLE;
-		}
-		
-		
-	}
-	
 	/*
 	 * this is where the SST table folder structure is created need to change to allow 
 	 * for uploading data to cassandra via sstableloader
 	 */
-	public void createOutputDirs(){
-		File[] files = new File[Output.NTHREDS];
-		
-		
-		for(int i = 0; i < Output.NTHREDS; i++){
-			files[i] = new File("thread" + i + File.separatorChar + TYPE_KEYSPACE + File.separatorChar + TYPE_TABLE);
+	public File[] createOutputDirs(){
+		/**
+		 * each thread needs an output folder for each distinct table
+		 */
+		File[] files = new File[20];
+		if(RUN_TYPE == PROJ){
+			/**
+			 * each thread needs a specific folder for each SSTable
+			 * the file format should adhere to ...../keyspace/tablename
+			 * conventions. 
+			 */
+			files[0] = new File(PROJ_THREAD_ONE_PATH + "t1");
+			files[1] = new File(PROJ_THREAD_ONE_PATH + "t2");
+			files[2] = new File(PROJ_THREAD_ONE_PATH + "t3");
+			files[3] = new File(PROJ_THREAD_ONE_PATH + "t4");
+			files[4] = new File(PROJ_THREAD_ONE_PATH + "t5");
+			
+			files[5] = new File(PROJ_THREAD_TWO_PATH + "t1");
+			files[6] = new File(PROJ_THREAD_TWO_PATH + "t2");
+			files[7] = new File(PROJ_THREAD_TWO_PATH + "t3");
+			files[8] = new File(PROJ_THREAD_TWO_PATH + "t4");
+			files[9] = new File(PROJ_THREAD_TWO_PATH + "t5");
+			
+			files[10] = new File(PROJ_THREAD_THREE_PATH + "t1");
+			files[11] = new File(PROJ_THREAD_THREE_PATH + "t2");
+			files[12] = new File(PROJ_THREAD_THREE_PATH + "t3");
+			files[13] = new File(PROJ_THREAD_THREE_PATH + "t4");
+			files[14] = new File(PROJ_THREAD_THREE_PATH + "t5");
+			
+			files[15] = new File(PROJ_THREAD_FOUR_PATH + "t1");
+			files[16] = new File(PROJ_THREAD_FOUR_PATH + "t2");
+			files[17] = new File(PROJ_THREAD_FOUR_PATH + "t3");
+			files[18] = new File(PROJ_THREAD_FOUR_PATH + "t4");
+			files[19] = new File(PROJ_THREAD_FOUR_PATH + "t5");
+			
+			THREAD_ONE_PATH = PROJ_THREAD_ONE_PATH;
+			THREAD_TWO_PATH = PROJ_THREAD_TWO_PATH;
+			THREAD_THREE_PATH = PROJ_THREAD_THREE_PATH;
+			THREAD_FOUR_PATH = PROJ_THREAD_FOUR_PATH;
+			
+			
+		}
+		else if (RUN_TYPE == DEMO){
+			/**
+			 * each thread needs a specific folder for each SSTable
+			 * the file format should adhere to ...../keyspace/tablename
+			 * conventions. 
+			 */
+			files[0] = new File(DEMO_THREAD_ONE_PATH + "t1");
+			files[1] = new File(DEMO_THREAD_ONE_PATH + "t2");
+			files[2] = new File(DEMO_THREAD_ONE_PATH + "t3");
+			files[3] = new File(DEMO_THREAD_ONE_PATH + "t4");
+			files[4] = new File(DEMO_THREAD_ONE_PATH + "t5");
+			
+			files[5] = new File(DEMO_THREAD_TWO_PATH + "t1");
+			files[6] = new File(DEMO_THREAD_TWO_PATH + "t2");
+			files[7] = new File(DEMO_THREAD_TWO_PATH + "t3");
+			files[8] = new File(DEMO_THREAD_TWO_PATH + "t4");
+			files[9] = new File(DEMO_THREAD_TWO_PATH + "t5");
+			
+			files[10] = new File(DEMO_THREAD_THREE_PATH + "t1");
+			files[11] = new File(DEMO_THREAD_THREE_PATH + "t2");
+			files[12] = new File(DEMO_THREAD_THREE_PATH + "t3");
+			files[13] = new File(DEMO_THREAD_THREE_PATH + "t4");
+			files[14] = new File(DEMO_THREAD_THREE_PATH + "t5");
+			
+			files[15] = new File(DEMO_THREAD_FOUR_PATH + "t1");
+			files[16] = new File(DEMO_THREAD_FOUR_PATH + "t2");
+			files[17] = new File(DEMO_THREAD_FOUR_PATH + "t3");
+			files[18] = new File(DEMO_THREAD_FOUR_PATH + "t4");
+			files[19] = new File(DEMO_THREAD_FOUR_PATH + "t5");
+			
+			
+			THREAD_ONE_PATH = DEMO_THREAD_ONE_PATH;
+			THREAD_TWO_PATH = DEMO_THREAD_TWO_PATH;
+			THREAD_THREE_PATH = DEMO_THREAD_THREE_PATH;
+			THREAD_FOUR_PATH = DEMO_THREAD_FOUR_PATH;
+			
 		}
 		
-		for(int i = 0; i < Output.NTHREDS; i++){
-			if(!files[i].exists() && !files[i].mkdirs()){
+		for(File f : files){
+			if(!f.exists() && !f.mkdirs()){
 				throw new RuntimeException("Cannot create output directory: "
-						+ files[i]);
+						+ f);
 			}
 		}
 		
-		
-		
-		
+		return files;
 	}
-	public static String getProperty(String name, String defaultValue){		
-		return System.getProperty(name) == null ? defaultValue : System.getProperty(name); 
-	}	
 }
