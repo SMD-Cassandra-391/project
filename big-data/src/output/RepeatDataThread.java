@@ -3,6 +3,10 @@ package output;
 
 
 
+import java.io.IOException;
+
+import org.apache.cassandra.exceptions.InvalidRequestException;
+
 import cass.Application;
 import cass.SSTwriter;
 
@@ -13,13 +17,13 @@ import cass.SSTwriter;
  * @author slmyers
  */
 
-public class DataThread implements Runnable{
+public class RepeatDataThread implements Runnable{
 	/**the table to be written */
 	private int tableId;
 	/**the folder to write the data */ 
 	private String folder;
 	/** the SSTwriter that writes the data */
-	private SSTwriter writer; 
+	private SSTwriter writer = null; 
 	/** the seed to pass the writer */
 	private int seed;
 	/**
@@ -27,7 +31,7 @@ public class DataThread implements Runnable{
 	 * @param tableId ID of table to write
 	 * @param folder where to write the SSTable
 	 */
-	public DataThread(int tableId, String folder, int seed){
+	public RepeatDataThread(int tableId, String folder, int seed){
 		this.tableId = tableId;
 		this.folder = folder;
 		this.seed = seed;
@@ -39,7 +43,13 @@ public class DataThread implements Runnable{
 	 */
 	public void run(){
 		this.writer = new SSTwriter(Application.NUM_ROWS, this.folder, this.tableId, this.seed); 
-		writer.execute();
+		try {
+			writer.execute();
+		} catch (InvalidRequestException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		writer.close();
 			
 		

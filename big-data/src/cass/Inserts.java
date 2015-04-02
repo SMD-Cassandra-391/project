@@ -1,7 +1,24 @@
 package cass;
 
+/**
+ * contains INSERT statements for the SSTwriter. These are similar to prepared statements.
+ * Obvious refactoring can be performed.
+ * @author slmyers
+ *
+ */
+
 public class Inserts {
-	public static final String INSERT_1_DEMO = "INSERT into t1.demo ("
+	public static final String INSERT_1_DEMO = 
+			"INSERT into demo.t1 (num , datetimeorigination, "
+			+		"callingpartynumber, callingpartyunicodeloginuserid, currentroutingreason, huntpilotdn, huntpilotpartition," 
+			+		"lastredirectingroutingreason, origcause_location, origcause_value, origipaddr, origmediacap_maxframesperpacket, "
+			+		"origmediacap_payloadcapability, origmediatransportaddress_ip, origmediatransportaddress_port, orignodeid,"
+			+		 "origprecedencelevel, origroutingreason, origspan, origvideocap_bandwidth, origvideocap_codec,"
+			+		 "origvideocap_resolution, origvideotransportaddress_ip)"
+			+		 "VALUES" 
+			+		"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	public static final String INSERT_1_PROJ = "INSERT into project.t1 ("
 			+	"num , "
 			+	"datetimeorigination, "
 			+	"callingpartynumber, "
@@ -32,38 +49,7 @@ public class Inserts {
 			+ 	"?, ?, ?, ?, ?, "
 			+ 	"?, ?, ?) ";
 	
-	public static final String INSERT_1_PROJ = "INSERT into t1.project ("
-			+	"num , "
-			+	"datetimeorigination, "
-			+	"callingpartynumber, "
-			+	"callingpartyunicodeloginuserid, "
-			+	"currentroutingreason, "
-			+	"huntpilotdn, "
-			+	"huntpilotpartition, "
-			+	"lastredirectingroutingreason, "
-			+	"origcause_location, "
-			+	"origcause_value, "
-			+	"origipaddr, "
-			+	"origmediacap_maxframesperpacket, "
-			+	"origmediacap_payloadcapability, "
-			+	"origmediatransportaddress_ip, "
-			+	"origmediatransportaddress_port, "
-			+	"orignodeid, "
-			+	"origprecedencelevel, "
-			+	"origroutingreason, "
-			+	"origspan, "
-			+	"origvideocap_bandwidth, "
-			+	"origvideocap_codec, "
-			+	"origvideocap_resolution, "
-			+	"origvideotransportaddress_ip)"
-			+ 	" VALUES ("
-			+ 	"?, ?, ?, ?, ?, "
-			+ 	"?, ?, ?, ?, ?, "
-			+ 	"?, ?, ?, ?, ?, "
-			+ 	"?, ?, ?, ?, ?, "
-			+ 	"?, ?, ?) ";
-	
-	public static final String INSERT_2_DEMO = "INSERT into t2.demo ("
+	public static final String INSERT_2_DEMO = "INSERT into demo.t2 ("
 			+	"num, "
 			+	"datetimeorigination, "
 			+	"cdrrecordtype, "
@@ -99,7 +85,7 @@ public class Inserts {
 			+ 	"?, ?, ?, ?, ?, "
 			+ 	"?, ?) ";
 	
-	public static final String INSERT_2_PROJ = "INSERT into t2.project ("
+	public static final String INSERT_2_PROJ = "INSERT into project.t2 ("
 			+	"num, "
 			+	"datetimeorigination, "
 			+	"cdrrecordtype, "
@@ -135,7 +121,7 @@ public class Inserts {
 			+ 	"?, ?, ?, ?, ?, "
 			+ 	"?, ?) ";
 
-	public static final String INSERT_3_DEMO = "INSERT into t3.demo ("
+	public static final String INSERT_3_DEMO = "INSERT into demo.t3 ("
 			+	"num, "
 			+	"datetimeorigination, "
 			+	"datetimeconnect, "
@@ -171,8 +157,8 @@ public class Inserts {
 		    + 	"?, ?, ?, ?, ?, "
 		    + 	"?, ?, ?, ?, ?, "
 		    + 	"?, ?, ?, ?, ?, "
-		    + 	"?, ?, ?) ";
-	public static final String INSERT_3_PROJ = "INSERT into t3.project ("
+		    + 	"?, ?, ?, ?) ";
+	public static final String INSERT_3_PROJ = "INSERT into project.t3 ("
 			+	"num, "
 			+	"datetimeorigination, "
 			+	"datetimeconnect, "
@@ -208,7 +194,29 @@ public class Inserts {
 		    + 	"?, ?, ?, ?, ?, "
 		    + 	"?, ?, ?, ?, ?, "
 		    + 	"?, ?, ?, ?, ?, "
-		    + 	"?, ?, ?) ";	    
-		   
+		    + 	"?, ?, ?, ?) ";    
 	
+	public static final String INSERT_4_DEMO = "INSERT INTO demo.t4 ("
+			+	"duration, "
+			+	"count) "
+			+	" VALUES ("
+			+	"?, ?) ";
+	
+	public static final String INSERT_4_PROJ = "INSERT INTO project.t4 ("
+			+	"duration, "
+			+	"count) "
+			+	" VALUES ("
+			+	"?, ?) ";
+	
+	public static final String INSERT_5_DEMO = "INSERT INTO demo.t5 ("
+			+	"callingnumber, "
+			+	"callcount) "
+			+	" VALUES ("
+			+	"?, ?) ";
+	
+	public static final String INSERT_5_PROJ = "INSERT INTO project.t5 ("
+			+	"callingnumber, "
+			+	"callcount) "
+			+	" VALUES ("
+			+	"?, ?) ";
 }

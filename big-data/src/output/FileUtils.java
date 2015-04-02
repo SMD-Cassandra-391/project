@@ -1,6 +1,7 @@
 package output;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -37,5 +38,16 @@ public class FileUtils {
 		} catch (IOException e) {
 			// empty catch directory doesn't exist it's cool
 		}
+	}
+	
+	public static long folderSize(File directory) {
+	    long length = 0;
+	    for (File file : directory.listFiles()) {
+	        if (file.isFile())
+	            length += file.length();
+	        else
+	            length += folderSize(file);
+	    }
+	    return length;
 	}
 }
