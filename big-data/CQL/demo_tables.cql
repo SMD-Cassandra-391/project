@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS demo.t2 (
 	origvideotransportaddress_port int, 
 	outgoingprotocolcallref text, 
 	outgoingprotocolid int, 
-	PRIMARY KEY ((datetimeorigination), num))
+	PRIMARY KEY ((datetimeorigination), num)
 );
 
 CREATE TABLE IF NOT EXISTS demo.t3 (
@@ -87,19 +87,19 @@ CREATE TABLE IF NOT EXISTS demo.t3 (
 	origdevicename text, 
 	originalcalledpartynumberpartition text, 
 	pkid text, 
-	PRIMARY KEY ((num), destdevicename))
+	PRIMARY KEY ((num), destdevicename)
 );
 
 
 CREATE TABLE IF NOT EXISTS demo.t4 (
     duration int,
     count int,
-    PRIMARY KEY (duration, count))
+    PRIMARY KEY (duration, count)
 );
 
 CREATE TABLE IF NOT EXISTS demo.t5 (
     callingnumber text,
     callcount int,
-    PRIMARY KEY (callingnumber, callcount))
+    PRIMARY KEY (callingnumber, callcount)
 );
 

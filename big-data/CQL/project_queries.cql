@@ -4,7 +4,7 @@ WHERE 	(currentroutingreason, orignodeid, origspan, origvideocap_bandwidth, date
         > (1,1,1,1,1)
 AND      (currentroutingreason, orignodeid, origspan, origvideocap_bandwidth, datetimeorigination)
         < (1000,1000,1000,1000,1000)
-LIMIT 4000
+LIMIT 10000
 ALLOW FILTERING;
 
 SELECT 	destcause_location, destipaddr
@@ -12,13 +12,13 @@ FROM 	project.t2
 WHERE 	datetimeorigination = 110
 AND     num >= 11612484378506
 AND     num <= 45880092667983
-LIMIT 4000;
+LIMIT 10000;
 
 
 SELECT 	origdevicename, duration
 FROM 	project.t3
 WHERE 	destdevicename IN ('a','f', 'g')
-LIMIT 4000
+LIMIT 10000
 ALLOW FILTERING;
 
 
