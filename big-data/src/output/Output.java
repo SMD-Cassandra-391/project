@@ -32,6 +32,12 @@ public class Output {
 		else if(args[0].equalsIgnoreCase("project")){
 			Application.RUN_TYPE = Application.PROJ;
 		}
+		else if(args[0].equalsIgnoreCase("mod_project")){
+			Application.RUN_TYPE = Application.MOD_PROJ;
+		}
+		else if(args[0].equalsIgnoreCase("mod_demo")){
+			Application.RUN_TYPE = Application.MOD_DEMO;
+		}
 		else{
 			System.out.println("keyspace is neither demo nor project. System exiting.");
 			System.exit(-1);

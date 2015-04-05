@@ -42,6 +42,14 @@ public class SSTwriter {
 					schemaToUse = new String(Schemas.SCHEMA_1_PROJ);
 					insertToUse = new String(Inserts.INSERT_1_PROJ);
 				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_1_MOD_PROJ);
+					insertToUse = new String(Inserts.INSERT_1_MOD_PROJ);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_1_MOD_DEMO);
+					insertToUse = new String(Inserts.INSERT_1_MOD_DEMO);
+				}
 				break;
 			case 1:
 				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
@@ -51,6 +59,14 @@ public class SSTwriter {
 				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
 					schemaToUse = new String(Schemas.SCHEMA_2_PROJ);
 					insertToUse = new String(Inserts.INSERT_2_PROJ);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_2_MOD_PROJ);
+					insertToUse = new String(Inserts.INSERT_2_MOD_PROJ);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_2_MOD_DEMO);
+					insertToUse = new String(Inserts.INSERT_2_MOD_DEMO);
 				}
 				break;
 			case 2:
@@ -62,25 +78,47 @@ public class SSTwriter {
 					schemaToUse = new String(Schemas.SCHEMA_3_PROJ);
 					insertToUse = new String(Inserts.INSERT_3_PROJ);
 				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_3_MOD_PROJ);
+					insertToUse = new String(Inserts.INSERT_3_MOD_PROJ);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_3_MOD_DEMO);
+					insertToUse = new String(Inserts.INSERT_3_MOD_DEMO);
+				}
 				break;
 			case 3:
 				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
-					schemaToUse = Schemas.SCHEMA_4_DEMO;
-					insertToUse = Inserts.INSERT_4_DEMO;
+					schemaToUse = new String(Schemas.SCHEMA_4_DEMO);
+					insertToUse = new String(Inserts.INSERT_4_DEMO);
 				}
 				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
-					schemaToUse = Schemas.SCHEMA_4_PROJ;
-					insertToUse = Inserts.INSERT_4_PROJ;
+					schemaToUse = new String(Schemas.SCHEMA_4_PROJ);
+					insertToUse = new String(Inserts.INSERT_4_PROJ);
+				}else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_4_MOD_PROJ);
+					insertToUse = new String(Inserts.INSERT_4_MOD_PROJ);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_4_MOD_DEMO);
+					insertToUse = new String(Inserts.INSERT_4_MOD_DEMO);
 				}
 				break;
 			case 4:
 				if(Application.RUN_TYPE.equalsIgnoreCase(Application.DEMO)){
-					schemaToUse = Schemas.SCHEMA_5_DEMO;
-					insertToUse = Inserts.INSERT_5_DEMO;
+					schemaToUse = new String(Schemas.SCHEMA_5_DEMO);
+					insertToUse = new String(Inserts.INSERT_5_DEMO);
 				}
 				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.PROJ)){
 					schemaToUse = Schemas.SCHEMA_5_PROJ;
 					insertToUse = Inserts.INSERT_5_PROJ;
+				}else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_PROJ)){
+					schemaToUse = new String(Schemas.SCHEMA_5_MOD_PROJ);
+					insertToUse = new String(Inserts.INSERT_5_MOD_PROJ);
+				}
+				else if(Application.RUN_TYPE.equalsIgnoreCase(Application.MOD_DEMO)){
+					schemaToUse = new String(Schemas.SCHEMA_5_MOD_DEMO);
+					insertToUse = new String(Inserts.INSERT_5_MOD_DEMO);
 				}
 				break;
 				
