@@ -39,7 +39,7 @@ public class Output {
 			Application.RUN_TYPE = Application.MOD_DEMO;
 		}
 		else{
-			System.out.println("keyspace is neither demo nor project. System exiting.");
+			System.out.println("keyspace is neither demo, project, mod_demo or mod_project. System exiting.");
 			System.exit(-1);
 		}
 		Application.NUM_ROWS = Integer.parseInt(args[1]);
